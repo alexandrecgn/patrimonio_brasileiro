@@ -49,7 +49,7 @@ Exemplo:
 
 ## Desenvolvimento
 
-* [x] Criar busca de Sítios Arqueológicos Cadastrados com retorno em CSV;
+* [x] ~~Criar busca de Sítios Arqueológicos Cadastrados com retorno em CSV~~;
 * [ ] Adicionar retorno de Bens Culturais Registrados (Imaterial);
 * [ ] Adicionar retorno de Bens Culturais Tombados;
 * [ ] Adicionar retorno de Bens Culturais Valorados (Ferroviário);
