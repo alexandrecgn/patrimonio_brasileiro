@@ -12,7 +12,7 @@ Ao longo do tempo serão adicionadas as respostas referentes aos demais bens cul
 
 ## Como utilizar
 
->**Pré-requisito:** Python instalado no computador utilizado para rodar o programa.
+>**Pré-requisito:** Python e as bibliotecas *geopandas*, *sys* e *requests* instalados no computador utilizado para rodar o programa.
 
 1. Baixe o arquivo *busca.py*;
 2. Cole 'busca.py' na mesma pasta onde está o arquivo geoespacial com a área de pesquisa;
