@@ -2,19 +2,36 @@ import csv
 import geopandas as gpd
 
 
-# Verifica se a área inserida se sobrepõe a algum ponto na camada
-# de sítios arqueológicos no geoserver do Iphan.
 def get_sitios(poligono):
-    sitios = gpd.read_file(
-        "http://portal.iphan.gov.br/geoserver/SICG/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=SICG%3Asitios&maxFeatures=2147483647&outputFormat=application%2Fjson"
-    )
-    busca = gpd.read_file(poligono)
-    st_pol = gpd.overlay(sitios, busca, how="intersection")
-    busca_dict = st_pol.to_geo_dict()
-    sitios_csv(busca_dict)
+    """
+    Esta função consulta o Geoserver Iphan para verificar se existem
+    sítios arqueológicos cadastrados na área do polígono de busca e
+    chama a função sitios_csv() para salvar as informações dos sítios.
 
-#Salva os bens identificados na área em csv
+    Args:
+        poligono (GeoDataFrame): polígono contendo a área na qual se
+        pretende fazer a busca por bens culturais.
+    Return: None
+    """
+    geoserver = gpd.read_file("http://portal.iphan.gov.br/geoserver/SICG/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=SICG%3Asitios&maxFeatures=2147483647&outputFormat=application%2Fjson")
+    busca = gpd.read_file(poligono)
+    st_pol = gpd.overlay(geoserver, busca, how="intersection")
+    sitios_dict = st_pol.to_geo_dict()
+    sitios_csv(sitios_dict)
+
+
 def sitios_csv(busca_dict):
+    """
+    Esta função salva os sítios arqueológicos encontrados na área de
+    busca em um arquivo CSV contendo o nome e link para ficha SICG de
+    cada sítio.
+
+    Args:
+        busca_dict (GeoDict): dicionário contendo as informações
+        presentes no Geoserver Iphan acerca dos sítios identificados
+        na área de busca.
+    Retrurn: None
+    """
     with open("sitios_csv.csv", "w", encoding="utf-8") as arquivo:
         writer = csv.DictWriter(arquivo, fieldnames=["Nome", "Ficha"])
         writer.writeheader()
@@ -26,7 +43,8 @@ def sitios_csv(busca_dict):
             writer.writerow({"Nome": nome, "Ficha": ficha})
 
 
-# def get_imaterial(poligono):
+def get_imaterial(poligono):
+    raise NotImplementedError("Aguardando inserção do Imaterial no Geoserver.")
 #     imaterial = gpd.read_file(URL DO IMATERIAL NO GEOSERVER)
 #     busca = gpd.read_file(poligono)
 #     imat_pol = gpd.overlay(imaterial, busca, how="intersection")
