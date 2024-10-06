@@ -50,12 +50,12 @@ Exemplo:
 ## Desenvolvimento
 
 * [x] Criar busca de Sítios Arqueológicos Cadastrados com retorno em CSV;
-* [] Adicionar retorno de Bens Culturais Registrados (Imaterial);
-* [] Adicionar retorno de Bens Culturais Tombados;
-* [] Adicionar retorno de Bens Culturais Valorados (Ferroviário);
-* [] Adicionar busca de todos os bens a partir da seleção da Unidade Federativa e município;
-* [] Disponibilizar o programa em uma interface web com as listas de bens sendo exibidas na página;
-* [] Adicionar exibição dos resultados em mapa renderizado na página;
-* [] Adicionar basemap de imagem de satélite ao mapa;
-* [] Tornar os itens mapa clicáveis para exibir um pop-up com as informações do bem.
+* [ ] Adicionar retorno de Bens Culturais Registrados (Imaterial);
+* [ ] Adicionar retorno de Bens Culturais Tombados;
+* [ ] Adicionar retorno de Bens Culturais Valorados (Ferroviário);
+* [ ] Adicionar busca de todos os bens a partir da seleção da Unidade Federativa e município;
+* [ ] Disponibilizar o programa em uma interface web com as listas de bens sendo exibidas na página;
+* [ ] Adicionar exibição dos resultados em mapa renderizado na página;
+* [ ] Adicionar basemap de imagem de satélite ao mapa;
+* [ ] Tornar os itens mapa clicáveis para exibir um pop-up com as informações do bem.
 
