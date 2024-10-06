@@ -20,8 +20,8 @@ Copyright© 2024 Alexandre Cavalcanti
 
 
 import csv
-import geopandas as gpd
 from sys import argv
+import geopandas as gpd
 
 
 def get_sitios(poligono):
@@ -65,8 +65,8 @@ def sitios_csv(busca_dict):
             writer.writerow({"Nome": nome, "Ficha": ficha})
 
 
-def get_imaterial(poligono):
-    raise NotImplementedError("Aguardando inserção do Imaterial no Geoserver.")
+# def get_imaterial(poligono):
+#     raise NotImplementedError("Aguardando inserção do Imaterial no Geoserver.")
 #     imaterial = gpd.read_file(URL DO IMATERIAL NO GEOSERVER)
 #     busca = gpd.read_file(poligono)
 #     imat_pol = gpd.overlay(imaterial, busca, how="intersection")
