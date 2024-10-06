@@ -21,6 +21,7 @@ Copyright© 2024 Alexandre Cavalcanti
 
 import csv
 import geopandas as gpd
+from sys import argv
 
 
 def get_sitios(poligono):
@@ -72,3 +73,7 @@ def get_imaterial(poligono):
 #     busca_dict = imat_pol.to_geo_dict()
 #     for bem in busca_dict["titulo"]:
 #         print(f"\nNome: {bem["data"]["titulo-25"]["value"]}\n>>> Ficha: {bem["url"]}\n")
+
+
+if __name__ == "__main__":
+    get_sitios(argv[1])
