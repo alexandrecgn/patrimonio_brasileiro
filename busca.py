@@ -67,7 +67,7 @@ def sitios_csv(busca_dict):
 
 
 def get_imaterial(poligono):
-    registrados = gpd.read_file("test/bens_registrados_poligono.gpkg")
+    registrados = gpd.read_file("test/bens_registrados_poligono_[tratado].gpkg")
     busca = gpd.read_file(poligono)
     rg_pol = gpd.overlay(registrados, busca, how="intersection")
     rg_dict = rg_pol.to_geo_dict()
