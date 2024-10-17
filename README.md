@@ -50,7 +50,7 @@ Exemplo:
 ## Desenvolvimento
 
 * [x] ~~Criar busca de Sítios Arqueológicos Cadastrados com retorno em CSV~~;
-* [x] Adicionar retorno de Bens Culturais Registrados (Imaterial);
+* [x] ~~Adicionar retorno de Bens Culturais Registrados (Imaterial)~~;
 * [ ] Adicionar retorno de Bens Culturais Tombados;
 * [ ] Adicionar retorno de Bens Culturais Valorados (Ferroviário);
 * [ ] Adicionar busca de todos os bens a partir da seleção da Unidade Federativa e município;
