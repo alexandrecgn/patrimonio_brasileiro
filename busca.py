@@ -67,7 +67,7 @@ def sitios_csv(busca_dict):
 
 
 def get_imaterial(poligono):
-    registrados = gpd.read_file("test/bens_registrados_poligono.gpkg")
+    registrados = gpd.read_file("test/test/patrimonio_imaterial_tratado_[nome_url].gpkg")
     busca = gpd.read_file(poligono)
     rg_pol = gpd.overlay(registrados, busca, how="intersection")
     rg_dict = rg_pol.to_geo_dict()
@@ -81,21 +81,8 @@ def imat_csv(rg_dict):
             writer = csv.DictWriter(arquivo, fieldnames=["Nome", "Ficha"])
             for cada in rg_dict["features"]:
                 nome = cada["properties"]["titulo"]
-                ficha = get_ficha_imat(nome)
+                ficha = cada["properties"]["bcr"]
                 writer.writerow({"Nome": nome, "Ficha": ficha})
-
-
-def get_ficha_imat(bem):
-    bcr = requests.get("https://bcr.iphan.gov.br/wp-json/tainacan/v2/items/?perpage=96&order=ASC&orderby=date&metaquery%5B0%5D%5Bkey%5D=1850&metaquery%5B0%5D%5Bvalue%5D%5B0%5D=65733&metaquery%5B0%5D%5Bcompare%5D=IN&exposer=json-flat&paged=1")
-    bcr_j = bcr.json()
-    bens = []
-    for item in bcr_j["items"]:
-        bens.append(dict(nome=item["data"]["titulo-25"], ficha=item["url"]))
-    for cada in bens:
-        if cada["nome"] == bem:
-            return cada["ficha"]
-        else:
-            return "Ficha não encontrada"
 
 
 if __name__ == "__main__":
