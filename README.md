@@ -5,7 +5,7 @@ O Buscador do Patrimônio é um programa escrito em Python para buscar Bens Cult
 
 Os Bens Culturais acautelados em nível federal são aqueles sob a gestão do Iphan - Instituto do Patrimônio Histórico e Artístico Nacional, protegidos pelo Decreto-Lei nº 25/1937; Lei nº 3.924/1961; Decreto nº 3.551/2000; e Lei nº 11.482/2007.
 
-O programa ainda está em desenvolvimento. No momento a busca retorna apenas os sítios arqueológicos cadastrados em um arquivo do formato CSV, contendo o nome do sítio e o link para sua ficha no SICG - Sistema Integrado de Conhecimento e Gestão.
+O programa ainda está em desenvolvimento. No momento a busca retorna apenas os sítios arqueológicos cadastrados e os Bens Imateriais Registrados, em arquivos separados, formato CSV, contendo o nome do bem e o link para sua ficha no SICG - Sistema Integrado de Conhecimento e Gestão ou no BCR - Banco de Bens Culturais Registrados.
 
 Ao longo do tempo serão adicionadas as respostas referentes aos demais bens culturais.
 
@@ -37,7 +37,7 @@ Ao longo do tempo serão adicionadas as respostas referentes aos demais bens cul
 
     `python3 busca.py municipio.geojson`
     
-5. Na pasta onde está colado *busca.py* irá aparecer um outro arquivo, nomeado *"sitios_csv.csv"*. Nele você verá uma lista dos sítios arqueológicos encontrados na área de pesquisa. Em cada linha constará o nome do sítio, seguido de sua ficha no SICG.
+5. Na pasta onde está colado *busca.py* iram aparecer dois outros arquivos, um nomeado *"sitios_csv.csv"* e *"imat_csv.csv"*. Neles você verá uma lista dos bens encontrados na área de pesquisa. Em cada linha constará o nome do bem, seguido de sua ficha de cadastro.
 
 Exemplo:
 
@@ -50,7 +50,7 @@ Exemplo:
 ## Desenvolvimento
 
 * [x] ~~Criar busca de Sítios Arqueológicos Cadastrados com retorno em CSV~~;
-* [ ] Adicionar retorno de Bens Culturais Registrados (Imaterial);
+* [x] Adicionar retorno de Bens Culturais Registrados (Imaterial);
 * [ ] Adicionar retorno de Bens Culturais Tombados;
 * [ ] Adicionar retorno de Bens Culturais Valorados (Ferroviário);
 * [ ] Adicionar busca de todos os bens a partir da seleção da Unidade Federativa e município;
