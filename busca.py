@@ -20,6 +20,7 @@ Copyright© 2024 Alexandre Cavalcanti
 
 
 import csv
+import requests
 from sys import argv
 import geopandas as gpd
 
@@ -65,15 +66,42 @@ def sitios_csv(busca_dict):
             writer.writerow({"Nome": nome, "Ficha": ficha})
 
 
-# def get_imaterial(poligono):
-#     raise NotImplementedError("Aguardando inserção do Imaterial no Geoserver.")
-#     imaterial = gpd.read_file(URL DO IMATERIAL NO GEOSERVER)
-#     busca = gpd.read_file(poligono)
-#     imat_pol = gpd.overlay(imaterial, busca, how="intersection")
-#     busca_dict = imat_pol.to_geo_dict()
-#     for bem in busca_dict["titulo"]:
-#         print(f"\nNome: {bem["data"]["titulo-25"]["value"]}\n>>> Ficha: {bem["url"]}\n")
+def get_imaterial(poligono):
+    registrados = gpd.read_file("test/bens_registrados_poligono.gpkg")
+    busca = gpd.read_file(poligono)
+    rg_pol = gpd.overlay(registrados, busca, how="intersection")
+    rg_dict = rg_pol.to_geo_dict()
+    imat_csv(rg_dict)
+
+def imat_csv(rg_dict):
+    with open("imat_csv.csv", "w", encoding="utf-8") as arquivo:
+        writer = csv.DictWriter(arquivo, fieldnames=["Nome", "Ficha"])
+        writer.writeheader()
+        with open("imat_csv.csv", "a", encoding="utf-8") as arquivo:
+            writer = csv.DictWriter(arquivo, fieldnames=["Nome", "Ficha"])
+            for cada in rg_dict["features"]:
+                nome = cada["properties"]["titulo"]
+                ficha = get_ficha_imat(nome)
+                writer.writerow({"Nome": nome, "Ficha": ficha})
+
+
+def get_ficha_imat(bem):
+    bcr = requests.get("https://bcr.iphan.gov.br/wp-json/tainacan/v2/items/?perpage=96&order=ASC&orderby=date&metaquery%5B0%5D%5Bkey%5D=1850&metaquery%5B0%5D%5Bvalue%5D%5B0%5D=65733&metaquery%5B0%5D%5Bcompare%5D=IN&exposer=json-flat&paged=1")
+    bcr_j = bcr.json()
+    bens = []
+    for item in bcr_j["items"]:
+        bens.append(dict(nome=item["data"]["titulo-25"], ficha=item["url"]))
+    for cada in bens:
+        if cada["nome"] == bem:
+            return cada["ficha"]
+        else:
+            return "Ficha não encontrada"
 
 
 if __name__ == "__main__":
+    print("Buscando Sítios Arqueológicos Cadastrados")
     get_sitios(argv[1])
+    print("Salvando lista de Sítios Arqueológicos")
+    print("Buscando Bens Imateriais Registrados")
+    get_imaterial(argv[1])
+    print("Salvando lista de Bens Registrados")
