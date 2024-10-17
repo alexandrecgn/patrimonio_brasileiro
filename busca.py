@@ -20,27 +20,30 @@ Copyright© 2024 Alexandre Cavalcanti
 
 
 import csv
-import requests
-from sys import argv
 import geopandas as gpd
 
 
-def get_sitios(poligono):
+def get_bens(poligono):
     """
     Esta função consulta o Geoserver Iphan para verificar se existem
-    sítios arqueológicos cadastrados na área do polígono de busca e
-    chama a função sitios_csv() para salvar as informações dos sítios.
+    sítios arqueológicos cadastrados ou Bens Imateriais Registrados na
+    área do polígono de busca e chama as funções sitios_csv() e imat_csv()
+    para salvar as informações dos bens interceptados.
 
     Args:
         poligono (GeoDataFrame): polígono contendo a área na qual se
         pretende fazer a busca por bens culturais.
-    Return: None
+    
+    Return: GeoDict
     """
     geoserver = gpd.read_file("http://portal.iphan.gov.br/geoserver/SICG/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=SICG%3Asitios&maxFeatures=2147483647&outputFormat=application%2Fjson")
+    registrados = gpd.read_file("test/test/patrimonio_imaterial_tratado_[nome_url].gpkg")
     busca = gpd.read_file(poligono)
     st_pol = gpd.overlay(geoserver, busca, how="intersection")
+    rg_pol = gpd.overlay(registrados, busca, how="intersection")
     sitios_dict = st_pol.to_geo_dict()
-    sitios_csv(sitios_dict)
+    rg_dict = rg_pol.to_geo_dict()
+    return sitios_dict, rg_dict
 
 
 def sitios_csv(busca_dict):
@@ -53,7 +56,8 @@ def sitios_csv(busca_dict):
         busca_dict (GeoDict): dicionário contendo as informações
         presentes no Geoserver Iphan acerca dos sítios identificados
         na área de busca.
-    Retrurn: None
+    
+    Return: None
     """
     with open("sitios_csv.csv", "w", encoding="utf-8") as arquivo:
         writer = csv.DictWriter(arquivo, fieldnames=["Nome", "Ficha"])
@@ -66,14 +70,19 @@ def sitios_csv(busca_dict):
             writer.writerow({"Nome": nome, "Ficha": ficha})
 
 
-def get_imaterial(poligono):
-    registrados = gpd.read_file("test/test/patrimonio_imaterial_tratado_[nome_url].gpkg")
-    busca = gpd.read_file(poligono)
-    rg_pol = gpd.overlay(registrados, busca, how="intersection")
-    rg_dict = rg_pol.to_geo_dict()
-    imat_csv(rg_dict)
-
 def imat_csv(rg_dict):
+    """
+    Esta função salva os bens imateriais encontrados na área de
+    busca em um arquivo CSV contendo o nome e link para ficha BCR de
+    cada bem.
+
+    Args:
+        rg_dict (GeoDict): dicionário contendo as informações
+        presentes no geopackage de Patrimônio Imaterial acerca
+        dos bens na área de busca.
+    
+     Return: None
+    """
     with open("imat_csv.csv", "w", encoding="utf-8") as arquivo:
         writer = csv.DictWriter(arquivo, fieldnames=["Nome", "Ficha"])
         writer.writeheader()
@@ -83,12 +92,3 @@ def imat_csv(rg_dict):
                 nome = cada["properties"]["titulo"]
                 ficha = cada["properties"]["bcr"]
                 writer.writerow({"Nome": nome, "Ficha": ficha})
-
-
-if __name__ == "__main__":
-    print("Buscando Sítios Arqueológicos Cadastrados")
-    get_sitios(argv[1])
-    print("Salvando lista de Sítios Arqueológicos")
-    print("Buscando Bens Imateriais Registrados")
-    get_imaterial(argv[1])
-    print("Salvando lista de Bens Registrados")

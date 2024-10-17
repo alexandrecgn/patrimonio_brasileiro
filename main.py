@@ -18,6 +18,16 @@ Copyright© 2024 Alexandre Cavalcanti
 
 """
 
-from busca import get_sitios
+from sys import argv
+from busca import get_bens, sitios_csv, imat_csv
 
-get_sitios("test/empreendimento.gpkg")
+def main():
+    print("Buscando bens culturais\n")
+    sitios_dict, rg_dict = get_bens(argv[1])
+    print("Salvando listas de bens encontrados")
+    sitios_csv(sitios_dict)
+    imat_csv(rg_dict)
+
+
+if __name__ == "__main__":
+    main()

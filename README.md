@@ -14,30 +14,30 @@ Ao longo do tempo serão adicionadas as respostas referentes aos demais bens cul
 
 >**Pré-requisito:** Python e as bibliotecas *geopandas*, *sys* e *requests* instalados no computador utilizado para rodar o programa.
 
-1. Baixe o arquivo *busca.py*;
-2. Cole 'busca.py' na mesma pasta onde está o arquivo geoespacial com a área de pesquisa;
+1. Baixe o arquivo *main.py*;
+2. Cole 'main.py' na mesma pasta onde está o arquivo geoespacial com a área de pesquisa;
 3. Abra o terminal no diretório (pasta) onde ambos os arquivos estão;
 4. Digite no terminal:
 
-- (**Windows**) py busca.py "nome do arquivo da pesquisa".
+- (**Windows**) py main.py "nome do arquivo da pesquisa".
     Exemplos:
 
-    `py busca.py empreendimento.shp`
+    `py main.py empreendimento.shp`
     
-    `py busca.py parque_nacional.gpkg`
+    `py main.py parque_nacional.gpkg`
 
-    `py busca.py municipio.geojson`
+    `py main.py municipio.geojson`
 
-- (**Linux**) python3 busca.py "nome do arquivo da pesquisa".
+- (**Linux**) python3 main.py "nome do arquivo da pesquisa".
     Exemplos:
 
-    `python3 busca.py empreendimento.shp`
+    `python3 main.py empreendimento.shp`
 
-    `python3 busca.py parque_nacional.gpkg`
+    `python3 main.py parque_nacional.gpkg`
 
-    `python3 busca.py municipio.geojson`
+    `python3 main.py municipio.geojson`
     
-5. Na pasta onde está colado *busca.py* iram aparecer dois outros arquivos, um nomeado *"sitios_csv.csv"* e *"imat_csv.csv"*. Neles você verá uma lista dos bens encontrados na área de pesquisa. Em cada linha constará o nome do bem, seguido de sua ficha de cadastro.
+5. Na pasta onde está colado *main.py* iram aparecer dois outros arquivos, um nomeado *"sitios_csv.csv"* e *"imat_csv.csv"*. Neles você verá uma lista dos bens encontrados na área de pesquisa. Em cada linha constará o nome do bem, seguido de sua ficha de cadastro.
 
 Exemplo:
 
