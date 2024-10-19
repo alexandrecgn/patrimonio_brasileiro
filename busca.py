@@ -37,7 +37,7 @@ def get_bens(poligono):
     Return: GeoDict
     """
     geoserver = gpd.read_file("http://portal.iphan.gov.br/geoserver/SICG/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=SICG%3Asitios&maxFeatures=2147483647&outputFormat=application%2Fjson")
-    registrados = gpd.read_file("test/test/patrimonio_imaterial_tratado_[nome_url].gpkg")
+    registrados = gpd.read_file("bens/imaterial.geojson")
     busca = gpd.read_file(poligono)
     st_pol = gpd.overlay(geoserver, busca, how="intersection")
     rg_pol = gpd.overlay(registrados, busca, how="intersection")
