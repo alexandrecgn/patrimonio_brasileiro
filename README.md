@@ -5,9 +5,9 @@ O Buscador do Patrimônio é um programa escrito em Python para buscar Bens Cult
 
 Os Bens Culturais acautelados em nível federal são aqueles sob a gestão do Iphan - Instituto do Patrimônio Histórico e Artístico Nacional, protegidos pelo Decreto-Lei nº 25/1937; Lei nº 3.924/1961; Decreto nº 3.551/2000; e Lei nº 11.482/2007.
 
-O programa ainda está em desenvolvimento. No momento a busca retorna apenas os sítios arqueológicos cadastrados e os Bens Imateriais Registrados, em arquivos separados, formato CSV, contendo o nome do bem e o link para sua ficha no SICG - Sistema Integrado de Conhecimento e Gestão ou no BCR - Banco de Bens Culturais Registrados.
+O programa ainda está em desenvolvimento. No momento a busca retorna apenas os sítios arqueológicos cadastrados, os Bens Imateriais Registrados e os Bens Tombados, em arquivos separados por natureza do bem (material ou imaterial), no formato CSV, contendo o nome de cada bem e o link para sua ficha no SICG - Sistema Integrado de Conhecimento e Gestão ou no BCR - Banco de Bens Culturais Registrados.
 
-Ao longo do tempo serão adicionadas as respostas referentes aos demais bens culturais.
+Ainda será adicionada a busca dos Bens Valorados (Patrimônio Ferroviário).
 
 
 ## Como utilizar
@@ -37,7 +37,7 @@ Ao longo do tempo serão adicionadas as respostas referentes aos demais bens cul
 
     `python3 main.py municipio.geojson`
     
-5. Na pasta onde está colado *main.py* iram aparecer dois outros arquivos, um nomeado *"sitios_csv.csv"* e *"imat_csv.csv"*. Neles você verá uma lista dos bens encontrados na área de pesquisa. Em cada linha constará o nome do bem, seguido de sua ficha de cadastro.
+5. Na pasta onde está colado *main.py* iram aparecer dois outros arquivos, um nomeado *"bens_materiais.csv"* e *"bens_imateriais.csv"*. Neles você verá uma lista dos bens encontrados na área de pesquisa. Em cada linha constará o nome do bem, seguido de sua ficha de cadastro.
 
 Exemplo:
 
@@ -51,7 +51,7 @@ Exemplo:
 
 * [x] ~~Criar busca de Sítios Arqueológicos Cadastrados com retorno em CSV~~;
 * [x] ~~Adicionar retorno de Bens Culturais Registrados (Imaterial)~~;
-* [ ] Adicionar retorno de Bens Culturais Tombados;
+* [x] ~~Adicionar retorno de Bens Culturais Tombados~~;
 * [ ] Adicionar retorno de Bens Culturais Valorados (Ferroviário);
 * [ ] Adicionar busca de todos os bens a partir da seleção da Unidade Federativa e município;
 * [ ] Disponibilizar o programa em uma interface web com as listas de bens sendo exibidas na página;

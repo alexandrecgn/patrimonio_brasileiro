@@ -83,7 +83,7 @@ def imat_csv(rg_dict):
     
      Return: None
     """
-    with open("imat_csv.csv", "a", encoding="utf-8") as arquivo:
+    with open("bens_imateriais.csv", "a", encoding="utf-8") as arquivo:
         writer = csv.DictWriter(arquivo, fieldnames=["Nome", "Ficha"])
         writer.writeheader()
         for cada in rg_dict["features"]:
