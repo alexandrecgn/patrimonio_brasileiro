@@ -36,37 +36,37 @@ def get_bens(poligono):
     
     Return: GeoDict
     """
-    geoserver = gpd.read_file("http://portal.iphan.gov.br/geoserver/SICG/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=SICG%3Asitios&maxFeatures=2147483647&outputFormat=application%2Fjson")
+    sitios = gpd.read_file("http://portal.iphan.gov.br/geoserver/SICG/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=SICG%3Asitios&maxFeatures=2147483647&outputFormat=application%2Fjson")
     registrados = gpd.read_file("bens/imaterial.geojson")
+    tombados = gpd.read_file("bens/tombados.geojson")
     busca = gpd.read_file(poligono)
-    st_pol = gpd.overlay(geoserver, busca, how="intersection")
+    st_pol = gpd.overlay(sitios, busca, how="intersection")
     rg_pol = gpd.overlay(registrados, busca, how="intersection")
+    tb_pol = gpd.overlay(tombados, busca, how="intersection")
     sitios_dict = st_pol.to_geo_dict()
     rg_dict = rg_pol.to_geo_dict()
-    return sitios_dict, rg_dict
+    tb_dict = tb_pol.to_geo_dict()
+    return sitios_dict, rg_dict, tb_dict
 
 
-def sitios_csv(busca_dict):
+def mat_csv(busca_dict):
     """
-    Esta função salva os sítios arqueológicos encontrados na área de
+    Esta função salva os bens materiais encontrados na área de
     busca em um arquivo CSV contendo o nome e link para ficha SICG de
-    cada sítio.
+    cada bem.
 
     Args:
-        busca_dict (GeoDict): dicionário contendo as informações
-        presentes no Geoserver Iphan acerca dos sítios identificados
-        na área de busca.
+        busca_dict (GeoDict): dicionário contendo as informações dos 
+        Bens Culturais Materiais encontrados na área de busca.
     
     Return: None
     """
-    with open("sitios_csv.csv", "w", encoding="utf-8") as arquivo:
+    with open("bens_materiais.csv", "a", encoding="utf-8") as arquivo:
         writer = csv.DictWriter(arquivo, fieldnames=["Nome", "Ficha"])
         writer.writeheader()
-    with open("sitios_csv.csv", "a", encoding="utf-8") as arquivo:
-        writer = csv.DictWriter(arquivo, fieldnames=["Nome", "Ficha"])
-        for sitio in busca_dict["features"]:
-            nome = sitio['properties']['identificacao_bem']
-            ficha = f"https://sicg.iphan.gov.br/sicg/bem/visualizar/{sitio['properties']['id_bem']}"
+        for bem in busca_dict["features"]:
+            nome = bem['properties']['identificacao_bem']
+            ficha = f"https://sicg.iphan.gov.br/sicg/bem/visualizar/{bem['properties']['id_bem']}"
             writer.writerow({"Nome": nome, "Ficha": ficha})
 
 
@@ -83,12 +83,10 @@ def imat_csv(rg_dict):
     
      Return: None
     """
-    with open("imat_csv.csv", "w", encoding="utf-8") as arquivo:
+    with open("imat_csv.csv", "a", encoding="utf-8") as arquivo:
         writer = csv.DictWriter(arquivo, fieldnames=["Nome", "Ficha"])
         writer.writeheader()
-        with open("imat_csv.csv", "a", encoding="utf-8") as arquivo:
-            writer = csv.DictWriter(arquivo, fieldnames=["Nome", "Ficha"])
-            for cada in rg_dict["features"]:
-                nome = cada["properties"]["titulo"]
-                ficha = cada["properties"]["bcr"]
-                writer.writerow({"Nome": nome, "Ficha": ficha})
+        for cada in rg_dict["features"]:
+            nome = cada["properties"]["titulo"]
+            ficha = cada["properties"]["bcr"]
+            writer.writerow({"Nome": nome, "Ficha": ficha})

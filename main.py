@@ -19,13 +19,14 @@ Copyright© 2024 Alexandre Cavalcanti
 """
 
 from sys import argv
-from busca import get_bens, sitios_csv, imat_csv
+from busca import get_bens, mat_csv, imat_csv
 
 def main():
     print("Buscando bens culturais\n")
-    sitios_dict, rg_dict = get_bens(argv[1])
+    sitios_dict, rg_dict, tb_dict = get_bens(argv[1])
     print("Salvando listas de bens encontrados")
-    sitios_csv(sitios_dict)
+    mat_csv(sitios_dict)
+    mat_csv(tb_dict)
     imat_csv(rg_dict)
 
 
