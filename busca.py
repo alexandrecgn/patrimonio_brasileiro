@@ -39,14 +39,17 @@ def get_bens(poligono):
     sitios = gpd.read_file("http://portal.iphan.gov.br/geoserver/SICG/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=SICG%3Asitios&maxFeatures=2147483647&outputFormat=application%2Fjson")
     registrados = gpd.read_file("bens/imaterial.geojson")
     tombados = gpd.read_file("bens/tombados.geojson")
+    valorados = gpd.read_file("bens/valorados.geojson")
     busca = gpd.read_file(poligono)
     st_pol = gpd.overlay(sitios, busca, how="intersection")
     rg_pol = gpd.overlay(registrados, busca, how="intersection")
     tb_pol = gpd.overlay(tombados, busca, how="intersection")
-    sitios_dict = st_pol.to_geo_dict()
+    vl_pol = gpd.overlay(valorados, busca, how="intersection")
+    st_dict = st_pol.to_geo_dict()
     rg_dict = rg_pol.to_geo_dict()
     tb_dict = tb_pol.to_geo_dict()
-    return sitios_dict, rg_dict, tb_dict
+    vl_dict = vl_pol.to_geo_dict()
+    return st_dict, rg_dict, tb_dict, vl_dict
 
 
 def mat_csv(busca_dict):
