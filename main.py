@@ -23,11 +23,12 @@ from busca import get_bens, mat_csv, imat_csv
 
 def main():
     print("Buscando bens culturais\n")
-    sitios_dict, rg_dict, tb_dict = get_bens(argv[1])
+    st_dict, rg_dict, tb_dict, vl_dict = get_bens(argv[1])
     print("Salvando listas de bens encontrados")
-    mat_csv(sitios_dict)
-    mat_csv(tb_dict)
     imat_csv(rg_dict)
+    mat_csv(st_dict)
+    mat_csv(tb_dict)
+    mat_csv(vl_dict)
 
 
 if __name__ == "__main__":
