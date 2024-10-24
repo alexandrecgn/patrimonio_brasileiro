@@ -3,11 +3,10 @@
 
 O Buscador do Patrimônio é um programa escrito em Python para buscar Bens Culturais acautelados em nível federal na área de um polígono definido pelo usuário.
 
-Os Bens Culturais acautelados em nível federal são aqueles sob a gestão do Iphan - Instituto do Patrimônio Histórico e Artístico Nacional, protegidos pelo Decreto-Lei nº 25/1937; Lei nº 3.924/1961; Decreto nº 3.551/2000; e Lei nº 11.482/2007.
+Os Bens Culturais acautelados em nível federal são aqueles sob a gestão do Iphan - Instituto do Patrimônio Histórico e Artístico Nacional, protegidos pelo Decreto-Lei nº 25/1937; Lei nº 3.924/1961; Decreto nº 3.551/2000; e Lei nº 11.483/2007.
 
-O programa ainda está em desenvolvimento. No momento a busca retorna apenas os sítios arqueológicos cadastrados, os Bens Imateriais Registrados e os Bens Tombados, em arquivos separados por natureza do bem (material ou imaterial), no formato CSV, contendo o nome de cada bem e o link para sua ficha no SICG - Sistema Integrado de Conhecimento e Gestão ou no BCR - Banco de Bens Culturais Registrados.
+O programa ainda está em desenvolvimento. No momento a busca retorna os bens culturais em arquivos separados por natureza do bem (material ou imaterial), no formato CSV, contendo o nome de cada bem e o link para sua ficha no SICG - Sistema Integrado de Conhecimento e Gestão ou no BCR - Banco de Bens Culturais Registrados.
 
-Ainda será adicionada a busca dos Bens Valorados (Patrimônio Ferroviário).
 
 
 ## Como utilizar
@@ -52,7 +51,7 @@ Exemplo:
 * [x] ~~Criar busca de Sítios Arqueológicos Cadastrados com retorno em CSV~~;
 * [x] ~~Adicionar retorno de Bens Culturais Registrados (Imaterial)~~;
 * [x] ~~Adicionar retorno de Bens Culturais Tombados~~;
-* [ ] Adicionar retorno de Bens Culturais Valorados (Ferroviário);
+* [x] ~~Adicionar retorno de Bens Culturais Valorados (Ferroviário)~~;
 * [ ] Adicionar busca de todos os bens a partir da seleção da Unidade Federativa e município;
 * [ ] Disponibilizar o programa em uma interface web com as listas de bens sendo exibidas na página;
 * [ ] Adicionar exibição dos resultados em mapa renderizado na página;
