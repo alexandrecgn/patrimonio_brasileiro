@@ -26,9 +26,9 @@ import geopandas as gpd
 def get_bens(poligono):
     """
     Esta função consulta o Geoserver Iphan para verificar se existem
-    sítios arqueológicos cadastrados ou Bens Imateriais Registrados na
-    área do polígono de busca e chama as funções sitios_csv() e imat_csv()
-    para salvar as informações dos bens interceptados.
+    Bens Culturais Acautelados na área do polígono de busca e chama
+    as funções sitios_csv() e imat_csv() para salvar as informações
+    dos bens interceptados.
 
     Args:
         poligono (GeoDataFrame): polígono contendo a área na qual se
