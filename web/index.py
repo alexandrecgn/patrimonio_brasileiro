@@ -1,5 +1,4 @@
 import streamlit as st
-import pandas as pd
 from busca_web import pesquisar, refinar_material, refinar_imaterial
 
 
