@@ -18,7 +18,7 @@ st.write(
 
 with st.form("pesquisa"):
     # Adicionar área de busca
-    area = st.file_uploader("Selecionar área", type=["gpkg", "shp", "geojson"])
+    area = st.file_uploader("Selecionar área", type=["gpkg", "geojson"])
 
     # TODO: Adicionar a pesquisa com retorno para cada categoria de bem
     # tipos = st.multiselect("Categorias", ["Patrimônio Arqueológico", "Patrimônio Imaterial", "Patrimônio Tombado", "Patrimônio Valorado"])
