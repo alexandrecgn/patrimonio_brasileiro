@@ -37,9 +37,9 @@ def get_bens(poligono):
     Return: GeoDict
     """
     sitios = gpd.read_file("http://portal.iphan.gov.br/geoserver/SICG/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=SICG%3Asitios&maxFeatures=2147483647&outputFormat=application%2Fjson")
-    registrados = gpd.read_file("bens/imaterial.geojson")
-    tombados = gpd.read_file("bens/tombados.geojson")
-    valorados = gpd.read_file("bens/valorados.geojson")
+    registrados = gpd.read_file("web/bens/imaterial.geojson")
+    tombados = gpd.read_file("web/bens/tombados.geojson")
+    valorados = gpd.read_file("web/bens/valorados.geojson")
     busca = gpd.read_file(poligono)
     st_pol = gpd.overlay(sitios, busca, how="intersection")
     rg_pol = gpd.overlay(registrados, busca, how="intersection")
