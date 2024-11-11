@@ -3,9 +3,9 @@ from busca_web import pesquisar, refinar_material, refinar_imaterial
 
 
 base_sitios = "http://portal.iphan.gov.br/geoserver/SICG/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=SICG%3Asitios&maxFeatures=2147483647&outputFormat=application%2Fjson"
-base_imaterial = "https://github.com/alexandrecgn/buscador_patrimonio/blob/main/web/bens/imaterial.geojson"
-base_tombados = "https://github.com/alexandrecgn/buscador_patrimonio/blob/main/web/bens/tombados.geojson"
-base_valorados = "https://github.com/alexandrecgn/buscador_patrimonio/blob/main/web/bens/valorados.geojson"
+base_imaterial = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/web/bens/imaterial.geojson"
+base_tombados = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/web/bens/tombados.geojson"
+base_valorados = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/web/bens/valorados.geojson"
 
 
 # Título
