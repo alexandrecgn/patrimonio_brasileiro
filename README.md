@@ -10,7 +10,7 @@ O programa ainda está em desenvolvimento. No momento a busca retorna os bens cu
 ## Pesquisar direto do navegador
 
 Para pesquisar a existência de Bens Culturais em uma determinada área:
-1. Acesse [clique aqui](https://buscadorpatrimonio.streamlit.app/) ou acesse https://buscadorpatrimonio.streamlit.app/;
+1. [Clique aqui](https://buscadorpatrimonio.streamlit.app/) ou acesse https://buscadorpatrimonio.streamlit.app/;
 2. Insira a poligonal de pesquisa; e
 3. Clique em "Pesquisar".
 
