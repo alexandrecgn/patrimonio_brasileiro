@@ -48,7 +48,7 @@ if enviado:
         if tab_sit.empty:
             st.write("Não foi identificado Patrimônio Arqueológico na área de busca")
         if not tab_sit.empty:
-            st.dataframe(tab_sit
+            st.dataframe(tab_sit)
     
     with tab2:
         st.header("Bens Imateriais Registrados")
