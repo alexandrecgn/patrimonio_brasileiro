@@ -7,14 +7,23 @@ Os Bens Culturais acautelados em nível federal são aqueles sob a gestão do Ip
 
 O programa ainda está em desenvolvimento. No momento a busca retorna os bens culturais em arquivos separados por natureza do bem (material ou imaterial), no formato CSV, contendo o nome de cada bem e o link para sua ficha no SICG - Sistema Integrado de Conhecimento e Gestão ou no BCR - Banco de Bens Culturais Registrados.
 
+## Pesquisar direto do navegador
+
+Para pesquisar a existência de Bens Culturais em uma determinada área:
+1. Acesse [clique aqui](https://buscadorpatrimonio.streamlit.app/) ou acesse https://buscadorpatrimonio.streamlit.app/;
+2. Insira a poligonal de pesquisa; e
+3. Clique em "Pesquisar".
+
+Ao fim da pesquisa serão exibidas as tabelas de cada tipologia de Bem Cultural existentes na área. 
 
 
-## Como utilizar
+
+## Pesquisar pela linha de comando do seu computador
 
 >**Pré-requisito:** Python e as bibliotecas *geopandas*, *sys* e *requests* instalados no computador utilizado para rodar o programa.
 
-1. Baixe o arquivo *main.py*;
-2. Cole 'main.py' na mesma pasta onde está o arquivo geoespacial com a área de pesquisa;
+1. Baixe os arquivos deste repositório;
+2. Cole o arquivo geoespacial com a área de pesquisa na mesma pasta onde está o arquivo baixado com o nome 'main.py';
 3. Abra o terminal no diretório (pasta) onde ambos os arquivos estão;
 4. Digite no terminal:
 
