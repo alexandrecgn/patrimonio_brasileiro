@@ -19,15 +19,16 @@ st.write(
 # Aviso
 st.warning("Formatos de arquivo suportados: KML (Google Earth), Geopackage, GeoJSON")
 
-with st.form("pesquisa"):
-    # Adicionar área de busca
-    area = st.file_uploader("Selecionar área", type=["kml", "gpkg", "geojson"])
+# Adicionar área de busca
+area = st.file_uploader("Selecionar área", type=["kml", "gpkg", "geojson"])
 
-    # TODO: Adicionar a pesquisa com retorno para cada categoria de bem
-    # tipos = st.multiselect("Categorias", ["Patrimônio Arqueológico", "Patrimônio Imaterial", "Patrimônio Tombado", "Patrimônio Valorado"])
+# TODO: Adicionar a pesquisa com retorno para cada categoria de bem
+# tipos = st.multiselect("Categorias", ["Patrimônio Arqueológico", "Patrimônio Imaterial", "Patrimônio Tombado", "Patrimônio Valorado"])
 
-    enviado = st.form_submit_button("Pesquisar")
-    if enviado:
+enviado = st.button("Pesquisar")
+    
+if enviado:
+    with st.status("## Pesquisando Bens Culturais na área inserida", expanded=True) as status:
         sitios = pesquisar(area, base_sitios)
         imaterial = pesquisar(area, base_imaterial)
         tombados = pesquisar(area, base_tombados)
@@ -36,6 +37,7 @@ with st.form("pesquisa"):
         tab_imt = refinar_imaterial(imaterial)
         tab_tmb = refinar_material(tombados, "Patrimônio Tombado")
         tab_val = refinar_material(valorados, "Patrimônio Ferroviário")
+        status.update(label="## Pesquisa Concluída", state="complete")
 
         if tab_sit.empty:
             st.write("Não foi identificado Patrimônio Arqueológico na área de busca")
