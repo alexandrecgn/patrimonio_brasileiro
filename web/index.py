@@ -13,12 +13,15 @@ st.title("Buscador do Patrimônio")
 
 # Descrição
 st.write(
-    "Faça o upload de um polígono georreferenciado para definir a área onde será feita a busca por Bens Culturais acautelados em âmbito federal e, em seguida, clique em **Buscar** para exibir os resultados"
+    "Faça o upload de um POLÍGONO georreferenciado para definir a área onde será feita a busca por Bens Culturais acautelados em âmbito federal e, em seguida, clique em **Buscar** para exibir os resultados"
 )
+
+# Aviso
+st.warning("Formatos de arquivo suportados: KML (Google Earth), Geopackage, GeoJSON")
 
 with st.form("pesquisa"):
     # Adicionar área de busca
-    area = st.file_uploader("Selecionar área", type=["gpkg", "geojson"])
+    area = st.file_uploader("Selecionar área", type=["kml", "gpkg", "geojson"])
 
     # TODO: Adicionar a pesquisa com retorno para cada categoria de bem
     # tipos = st.multiselect("Categorias", ["Patrimônio Arqueológico", "Patrimônio Imaterial", "Patrimônio Tombado", "Patrimônio Valorado"])
