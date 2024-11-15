@@ -32,7 +32,7 @@ def refinar_imaterial(resultado):
     return refinado
 
 
-# base_bens =[
+# base_bens = [
 #     {"tipo": "sitios", "base": gpd.read_file("http://portal.iphan.gov.br/geoserver/SICG/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=SICG%3Asitios&maxFeatures=2147483647&outputFormat=application%2Fjson")},
 #     {"tipo": "registrados", "base": gpd.read_file("bens/imaterial.geojson")},
 #     {"tipo": "tombados", "base": gpd.read_file("bens/tombados.geojson")},

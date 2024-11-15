@@ -18,17 +18,38 @@ Copyright© 2024 Alexandre Cavalcanti
 
 """
 
-from sys import argv
-from busca import get_bens, mat_csv, imat_csv
+import sys
+import pandas
+from busca import pesquisar, to_dict, refinar_material, refinar_imaterial
+
+
+base_sitios = "http://portal.iphan.gov.br/geoserver/SICG/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=SICG%3Asitios&maxFeatures=2147483647&outputFormat=application%2Fjson"
+base_imaterial = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/web/bens/imaterial.geojson"
+base_tombados = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/web/bens/tombados.geojson"
+base_valorados = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/web/bens/valorados.geojson"
+
 
 def main():
-    print("Buscando bens culturais\n")
-    st_dict, rg_dict, tb_dict, vl_dict = get_bens(argv[1])
-    print("Salvando listas de bens encontrados")
-    imat_csv(rg_dict)
-    mat_csv(st_dict)
-    mat_csv(tb_dict)
-    mat_csv(vl_dict)
+    area = sys.argv[1]
+
+    print("\nBuscando bens culturais\n")
+
+    sitios = pesquisar(area, base_sitios)
+    imaterial = pesquisar(area, base_imaterial)
+    tombados = pesquisar(area, base_tombados)
+    valorados = pesquisar(area, base_valorados)
+
+    sit_dt = refinar_material(to_dict(sitios))
+    ima_dt = refinar_imaterial(to_dict(imaterial))
+    tom_dt = refinar_material(to_dict(tombados))
+    val_dt = refinar_material(to_dict(valorados))
+
+    print("\nSalvando listas de bens encontrados")
+
+    sit_dt.to_csv("Patrimônio Arqueológico")
+    ima_dt.to_csv("Patrimônio Imaterial")
+    tom_dt.to_csv("Patrimônio Tombado")
+    val_dt.to_csv("Patrimônio Valorado")
 
 
 if __name__ == "__main__":
