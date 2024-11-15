@@ -18,78 +18,84 @@ Copyright© 2024 Alexandre Cavalcanti
 
 """
 
-
-import csv
 import geopandas as gpd
+import pandas as pd
 
 
-def get_bens(poligono):
+def pesquisar(area, base_bens):
     """
-    Esta função consulta o Geoserver Iphan para verificar se existem
-    Bens Culturais Acautelados na área do polígono de busca e chama
-    as funções sitios_csv() e imat_csv() para salvar as informações
-    dos bens interceptados.
+    consulta o Geoserver Iphan para verificar se existem Bens
+    Culturais Acautelados na área do polígono de busca através
+    da consulta aos dados oficiais do Iphan.
 
     Args:
-        poligono (GeoDataFrame): polígono contendo a área na qual se
-        pretende fazer a busca por bens culturais.
+        poligono (GeoDataFrame): polígono contendo a área na qual
+        se pretende fazer a busca por bens culturais.
     
-    Return: GeoDict
+    Return:
+        GeoDataFrame: Recorte dos bens culturais identificados dentro
+        da área de busca.
     """
-    sitios = gpd.read_file("http://portal.iphan.gov.br/geoserver/SICG/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=SICG%3Asitios&maxFeatures=2147483647&outputFormat=application%2Fjson")
-    registrados = gpd.read_file("web/bens/imaterial.geojson")
-    tombados = gpd.read_file("web/bens/tombados.geojson")
-    valorados = gpd.read_file("web/bens/valorados.geojson")
-    busca = gpd.read_file(poligono)
-    st_pol = gpd.overlay(sitios, busca, how="intersection")
-    rg_pol = gpd.overlay(registrados, busca, how="intersection")
-    tb_pol = gpd.overlay(tombados, busca, how="intersection")
-    vl_pol = gpd.overlay(valorados, busca, how="intersection")
-    st_dict = st_pol.to_geo_dict()
-    rg_dict = rg_pol.to_geo_dict()
-    tb_dict = tb_pol.to_geo_dict()
-    vl_dict = vl_pol.to_geo_dict()
-    return st_dict, rg_dict, tb_dict, vl_dict
+    busca = gpd.read_file(area)
+    bens_culturais = gpd.read_file(base_bens)
+    bens = gpd.overlay(busca, bens_culturais, how="intersection", keep_geom_type=False)
+    return bens
 
 
-def mat_csv(busca_dict):
+def to_dict(bens):
     """
-    Esta função salva os bens materiais encontrados na área de
-    busca em um arquivo CSV contendo o nome e link para ficha SICG de
-    cada bem.
+    Converte o objeto de entrada de GeoDataFrame para GeoDict.
 
     Args:
-        busca_dict (GeoDict): dicionário contendo as informações dos 
-        Bens Culturais Materiais encontrados na área de busca.
-    
-    Return: None
-    """
-    with open("bens_materiais.csv", "a", encoding="utf-8") as arquivo:
-        writer = csv.DictWriter(arquivo, fieldnames=["Nome", "Ficha"])
-        writer.writeheader()
-        for bem in busca_dict["features"]:
-            nome = bem['properties']['identificacao_bem']
-            ficha = f"https://sicg.iphan.gov.br/sicg/bem/visualizar/{bem['properties']['id_bem']}"
-            writer.writerow({"Nome": nome, "Ficha": ficha})
+        bens (GeoDataFrame): Recorte dos bens culturais identificados
+        dentro da área de busca.
 
-
-def imat_csv(rg_dict):
+    Returns:
+        GeoDict: O mesmo conteúdo do objeto de entrada, mas no formato
+        de dicionário georreferenciado.
     """
-    Esta função salva os bens imateriais encontrados na área de
-    busca em um arquivo CSV contendo o nome e link para ficha BCR de
-    cada bem.
+    resultado = bens.to_geo_dict()
+    return resultado
+
+def refinar_material(resultado):
+    """
+    Seleciona o nome do bem cultural material e seu código SICG para gerar
+    um DataFrame com o nome e link da ficha de cadastro de cada bem.
 
     Args:
-        rg_dict (GeoDict): dicionário contendo as informações
-        presentes no geopackage de Patrimônio Imaterial acerca
-        dos bens na área de busca.
-    
-     Return: None
+        resultado (GeoDict): Dicinário georreferenciado contendo o resultado
+        da busca por bens culturais.
+
+    Returns:
+        DataFrame: Objeto contendo o nome do bem cultural e o link para sua
+        ficha no Sistema Integrado de Conhecimento e Gestão - SICG/IPHAN.
     """
-    with open("bens_imateriais.csv", "a", encoding="utf-8") as arquivo:
-        writer = csv.DictWriter(arquivo, fieldnames=["Nome", "Ficha"])
-        writer.writeheader()
-        for cada in rg_dict["features"]:
-            nome = cada["properties"]["titulo"]
-            ficha = cada["properties"]["bcr"]
-            writer.writerow({"Nome": nome, "Ficha": ficha})
+    refinar = []
+    for bem in resultado["features"]:
+        nome = bem['properties']['identificacao_bem']
+        ficha = f"https://sicg.iphan.gov.br/sicg/bem/visualizar/{bem['properties']['id_bem']}"
+        refinar.append({"Nome do bem": nome, "Ficha do bem": ficha})
+    refinado = pd.DataFrame(refinar)
+    return refinado
+
+
+def refinar_imaterial(resultado):
+    """
+    Seleciona o nome do bem cultural imaterial e o link para sua ficha no BCR
+    para gerar um DataFrame com essas informações.
+
+    Args:
+        resultado (GeoDict): Dicinário georreferenciado contendo o resultado
+        da busca por bens culturais.
+
+    Returns:
+        DataFrame: Objeto contendo o nome do bem cultural e o link para sua
+        ficha no Banco de Bens Culturais Registrados - BCR/IPHAN.
+    """
+    refinar = []
+    for bem in resultado["features"]:
+        nome = bem["properties"]["titulo"]
+        ficha = bem["properties"]["bcr"]
+        refinar.append({"Nome do bem": nome, "Ficha do bem": ficha})
+    refinado = pd.DataFrame(refinar)
+    return refinado
