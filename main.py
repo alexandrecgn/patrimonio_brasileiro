@@ -20,13 +20,13 @@ Copyright© 2024 Alexandre Cavalcanti
 
 import sys
 import pandas
-from busca import pesquisar, to_dict, refinar_material, refinar_imaterial
+from utils import pesquisar, to_dict, refinar_material, refinar_imaterial
 
 
 base_sitios = "http://portal.iphan.gov.br/geoserver/SICG/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=SICG%3Asitios&maxFeatures=2147483647&outputFormat=application%2Fjson"
-base_imaterial = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/web/bens/imaterial.geojson"
-base_tombados = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/web/bens/tombados.geojson"
-base_valorados = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/web/bens/valorados.geojson"
+base_imaterial = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/bens/imaterial.geojson"
+base_tombados = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/bens/tombados.geojson"
+base_valorados = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/bens/valorados.geojson"
 
 
 def main():
