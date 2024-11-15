@@ -1,11 +1,11 @@
 import streamlit as st
-from busca_web import pesquisar, refinar_material, refinar_imaterial
+from utils import pesquisar, to_dict, refinar_material, refinar_imaterial
 
 
 base_sitios = "http://portal.iphan.gov.br/geoserver/SICG/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=SICG%3Asitios&maxFeatures=2147483647&outputFormat=application%2Fjson"
-base_imaterial = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/web/bens/imaterial.geojson"
-base_tombados = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/web/bens/tombados.geojson"
-base_valorados = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/web/bens/valorados.geojson"
+base_imaterial = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/bens/imaterial.geojson"
+base_tombados = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/bens/tombados.geojson"
+base_valorados = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/bens/valorados.geojson"
 
 
 # Título
@@ -33,10 +33,10 @@ if enviado:
         imaterial = pesquisar(area, base_imaterial)
         tombados = pesquisar(area, base_tombados)
         valorados = pesquisar(area, base_valorados)
-        tab_sit = refinar_material(sitios, "Patrimônio Arqueológico")
-        tab_imt = refinar_imaterial(imaterial)
-        tab_tmb = refinar_material(tombados, "Patrimônio Tombado")
-        tab_val = refinar_material(valorados, "Patrimônio Ferroviário")
+        tab_sit = refinar_material(to_dict(sitios))
+        tab_imt = refinar_imaterial(to_dict(imaterial))
+        tab_tmb = refinar_material(to_dict(tombados))
+        tab_val = refinar_material(to_dict(valorados))
         status.update(label="Pesquisa Concluída", state="complete")
 
     tab1, tab2, tab3, tab4 = st.tabs(["Patrimônio Arqueológico", "Patrimônio Imaterial", "Patrimônio Tombado", "Patrimônio Ferroviário"])
