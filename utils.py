@@ -31,6 +31,9 @@ def pesquisar(area, base_bens):
     Args:
         poligono (GeoDataFrame): polígono contendo a área na qual
         se pretende fazer a busca por bens culturais.
+        
+        base_bens (string): string com a URL da base de dados a ser
+        consultada.
     
     Return:
         GeoDataFrame: Recorte dos bens culturais identificados dentro
