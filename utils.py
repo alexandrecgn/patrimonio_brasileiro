@@ -78,6 +78,10 @@ def refinar_material(resultado):
         nome = bem['properties']['identificacao_bem']
         ficha = f"https://sicg.iphan.gov.br/sicg/bem/visualizar/{bem['properties']['id_bem']}"
         refinar.append({"Nome do bem": nome, "Ficha do bem": ficha})
+        lon = bem["geometry"]["coordinates"][0]
+        lat = bem["geometry"]["coordinates"][1]
+        bem["LON"] = lon
+        bem["LAT"] = lat
     refinado = pd.DataFrame(refinar)
     return refinado
 
