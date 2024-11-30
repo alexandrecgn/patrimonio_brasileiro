@@ -62,8 +62,10 @@ Exemplo:
 * [x] ~~Adicionar retorno de Bens Culturais Tombados~~;
 * [x] ~~Adicionar retorno de Bens Culturais Valorados (Ferroviário)~~;
 * [x] ~~Disponibilizar o programa em uma interface web com as listas de bens sendo exibidas na página~~;
-* [ ] Adicionar exibição dos resultados em mapa renderizado na página;
+* [x] ~~Adicionar exibição dos resultados em mapa renderizado na página~~;
+* [ ] Adicionar redenrização do polígono de busca no mapa;
 * [ ] Adicionar basemap de imagem de satélite ao mapa;
-* [ ] Tornar os itens mapa clicáveis para exibir um pop-up com as informações do bem.
-* [ ] Adicionar busca de todos os bens a partir da seleção da Unidade Federativa e município;
+* [ ] Tornar os itens mapa clicáveis para exibir um pop-up com as informações do bem;
+* [ ] Possibilitar a seleção das tipologias de bens a serem pesquisados;
+* [ ] Adicionar busca de todos os bens a partir da seleção da Unidade Federativa e município.
 
