@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 from utils import pesquisar, to_dict, refinar_material, refinar_imaterial
 
 
@@ -40,10 +41,17 @@ if enviado:
         val_dict = to_dict(valorados)
 
         tab_sit = refinar_material(sit_dict)
+
         tab_imtpol = refinar_imaterial(imapol_dict)
         tab_imtpt = refinar_imaterial(imapt_dict)
+        impol = pd.DataFrame(tab_imtpol)
+        impt = pd.DataFrame(tab_imtpt)
+        tab_im_tot = pd.concat([impol, impt])
+        
         tab_tmb = refinar_material(tom_dict)
+        
         tab_val = refinar_material(val_dict)
+        
         status.update(label="Pesquisa Concluída", state="complete")
 
     tab1, tab2, tab3, tab4 = st.tabs(["Patrimônio Arqueológico", "Patrimônio Imaterial", "Patrimônio Tombado", "Patrimônio Ferroviário"])
@@ -66,7 +74,7 @@ if enviado:
         elif tab_imtpt.empty and not tab_imtpol.empty:
             st.dataframe(tab_imtpol)
         elif not tab_imtpt.empty and not tab_imtpol.empty:
-            st.dataframe(data=[tab_imtpol, tab_imtpt])
+            st.dataframe(tab_im_tot)
     
     with tab3:
         st.header("Bens Materiais Tombados")
