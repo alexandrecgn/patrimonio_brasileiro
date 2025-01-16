@@ -27,7 +27,7 @@ with st.form("busca"):
     enviado = st.form_submit_button("Pesquisar")
     
     if enviado:
-        folium.GeoJson(gpd.read_file(area)).add_to(mapinha)
+        folium.GeoJson(gpd.read_file(area), name="Polígono de busca").add_to(mapinha)
         with st.status("Pesquisando Bens Culturais na área inserida", expanded=True) as status:
             sitios = pesquisar(area, base_sitios)
             imaterial_pol = pesquisar(area, base_imaterial_pol)
@@ -59,45 +59,42 @@ with st.form("busca"):
 
         with tab1:
             st.header("Sítios Arqueológicos Cadastrados")
-            tabela, mapa = st.columns(2)
             if tab_sit.empty:
                 st.write("Não foi identificado Patrimônio Arqueológico na área de busca")
             if not tab_sit.empty:
-                tabela.dataframe(tab_sit)
-                folium.GeoJson(sitios["geometry"]).add_to(mapinha)
+                st.dataframe(tab_sit, use_container_width=True)
+                folium.GeoJson(sitios["geometry"], name="Bens Arqueológicos").add_to(mapinha)
         
         with tab2:
             st.header("Bens Imateriais Registrados")
             if tab_imtpol.empty and tab_imtpt.empty:
                 st.write("Não foi identificado Patrimônio Imaterial na área de busca")
             elif tab_imtpol.empty and not tab_imtpt.empty:
-                st.dataframe(tab_imtpt)
+                st.dataframe(tab_imtpt, use_container_width=True)
                 folium.GeoJson(imaterial_pol["geometry"]).add_to(mapinha)
             elif tab_imtpt.empty and not tab_imtpol.empty:
-                st.dataframe(tab_imtpol)
+                st.dataframe(tab_imtpol, use_container_width=True)
                 folium.GeoJson(imaterial_pt["geometry"]).add_to(mapinha)
             elif not tab_imtpt.empty and not tab_imtpol.empty:
-                st.dataframe(tab_im_tot)
-                folium.GeoJson(imaterial_pol["geometry"]).add_to(mapinha)
-                folium.GeoJson(imaterial_pt["geometry"]).add_to(mapinha)
+                st.dataframe(tab_im_tot, use_container_width=True)
+                folium.GeoJson(imaterial_pol["geometry"], name="Bens Registrados (polígonos)").add_to(mapinha)
+                folium.GeoJson(imaterial_pt["geometry"], name="Bens Registrados (pontos)").add_to(mapinha)
         
         with tab3:
             st.header("Bens Materiais Tombados")
-            tabela, mapa = st.columns(2)
             if tab_tmb.empty:
                 st.write("Não foi identificado Patrimônio Tombado na área de busca")
             if not tab_tmb.empty:
-                tabela.dataframe(tab_tmb)
-                folium.GeoJson(tombados["geometry"]).add_to(mapinha)
+                st.dataframe(tab_tmb, use_container_width=True)
+                folium.GeoJson(tombados["geometry"], name="Bens Tombados").add_to(mapinha)
         
         with tab4:
             st.header("Bens Materiais Valorados")
-            tabela, mapa = st.columns(2)
             if tab_val.empty:
                 st.write("Não foi identificado Patrimônio Ferroviário na área de busca")
             if not tab_val.empty:
-                tabela.dataframe(tab_val)
-                folium.GeoJson(valorados["geometry"]).add_to(mapinha)
+                st.dataframe(tab_val, use_container_width=True)
+                folium.GeoJson(valorados["geometry"], name="Bens Valorados").add_to(mapinha)
 
-        # folium.LayerControl().add_to(mapinha)
+        folium.LayerControl().add_to(mapinha)
         st_folium(mapinha)
