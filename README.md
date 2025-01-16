@@ -65,7 +65,7 @@ Exemplo:
 * [x] ~~Adicionar exibição dos resultados em mapa renderizado na página~~;
 * [x] ~~Adicionar redenrização do polígono de busca no mapa~~;
 * [x] ~~Adicionar controle de camadas~~;
-* [ ] Adicionar basemap de imagem de satélite ao mapa;
+* [x] ~~Adicionar basemap de imagem de satélite ao mapa~~;
 * [ ] Tornar os itens mapa clicáveis para exibir um pop-up com as informações do bem;
 * [ ] Possibilitar a seleção das tipologias de bens a serem pesquisados;
 * [ ] Adicionar busca de todos os bens a partir da seleção da Unidade Federativa e município.
