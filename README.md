@@ -67,7 +67,8 @@ Exemplo:
 * [x] ~~Adicionar controle de camadas~~;
 * [x] ~~Adicionar basemap de imagem de satélite ao mapa~~;
 * [x] ~~Adicionar escala ao mapa~~;
-* [ ] Tornar os itens mapa clicáveis para exibir um pop-up com as informações do bem;
+* [x] ~~Tornar os itens mapa clicáveis para exibir um pop-up com as informações do bem~~;
+* [ ] Refatorar main.py;
 * [ ] Possibilitar a seleção das tipologias de bens a serem pesquisados;
 * [ ] Adicionar busca de todos os bens a partir da seleção da Unidade Federativa e município.
 
