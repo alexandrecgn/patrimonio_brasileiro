@@ -20,7 +20,11 @@ base_valorados = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrim
 
 
 st.title("Buscador do Patrimônio")
+st.error("Este projeto não possui qualquer vínculo com o Iphan - Instituto do Patrimôno Histórico e Artístico Nacional ou qualquer outro órgão/instuição.")
 
+st.empty()
+
+st.write("## Busca por polígono")
 st.write(
     "Faça o upload de um POLÍGONO georreferenciado para definir a área onde será feita a busca por Bens Culturais acautelados em âmbito federal e, em seguida, clique em **Pesquisar** para exibir os resultados"
 )
