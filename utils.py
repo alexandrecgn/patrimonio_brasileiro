@@ -42,6 +42,8 @@ def pesquisar(area, base_bens):
     busca = gpd.read_file(area)
     bens_culturais = gpd.read_file(base_bens)
     bens = gpd.overlay(busca, bens_culturais, how="intersection", keep_geom_type=False)
+    if "dt_cadastro" in bens.columns:
+        bens = bens.drop(columns=["dt_cadastro"])
     return bens
 
 

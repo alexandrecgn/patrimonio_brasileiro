@@ -1,7 +1,7 @@
 import streamlit as st
 
-poligono = st.Page("pages/poligono.py", title="Busca por polígono")
-municipio = st.Page("pages/municipio.py", title="Busca por município")
+poligono = st.Page("paginas/poligono.py", title="Busca por polígono")
+municipio = st.Page("paginas/municipio.py", title="Busca por município")
 
 pg = st.navigation(pages={"Busca": [poligono, municipio]}, expanded=True)
 
