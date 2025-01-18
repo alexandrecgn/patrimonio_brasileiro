@@ -85,7 +85,7 @@ with st.form("busca"):
             if not tab_sit.empty:
                 st.dataframe(tab_sit, use_container_width=True)
                 folium.GeoJson(
-                    sitios["geometry"],
+                    sitios,
                     name="Bens Arqueológicos",
                     marker=folium.Marker(icon=icon),
                     ).add_to(mapinha)
@@ -100,26 +100,26 @@ with st.form("busca"):
             elif tab_imtpol.empty and not tab_imtpt.empty:
                 st.dataframe(tab_imtpt, use_container_width=True)
                 folium.GeoJson(
-                    imaterial_pt["geometry"],
+                    imaterial_pt,
                     name="Bens Registrados (pontos)",
                     marker=folium.Marker(icon=icon),
                     ).add_to(mapinha)
             elif tab_imtpt.empty and not tab_imtpol.empty:
                 st.dataframe(tab_imtpol, use_container_width=True)
                 folium.GeoJson(
-                    imaterial_pol["geometry"],
+                    imaterial_pol,
                     name="Bens Registrados (polígonos)",
                     style_function=lambda cor: {"color": "purple"},
                     ).add_to(mapinha)
             elif not tab_imtpt.empty and not tab_imtpol.empty:
                 st.dataframe(tab_im_tot, use_container_width=True)
                 folium.GeoJson(
-                    imaterial_pol["geometry"],
+                    imaterial_pol,
                     name="Bens Registrados (polígonos)",
                     style_function=lambda cor: {"color": "purple"},
                     ).add_to(mapinha)
                 folium.GeoJson(
-                    imaterial_pt["geometry"],
+                    imaterial_pt,
                     name="Bens Registrados (pontos)",
                     marker=folium.Marker(icon=icon),
                     ).add_to(mapinha)
@@ -134,7 +134,7 @@ with st.form("busca"):
             if not tab_tmb.empty:
                 st.dataframe(tab_tmb, use_container_width=True)
                 folium.GeoJson(
-                    tombados["geometry"],
+                    tombados,
                     name="Bens Tombados",
                     marker=folium.Marker(icon=icon),
                     ).add_to(mapinha)
@@ -149,7 +149,7 @@ with st.form("busca"):
             if not tab_val.empty:
                 st.dataframe(tab_val, use_container_width=True)
                 folium.GeoJson(
-                    valorados["geometry"],
+                    valorados,
                     name="Bens Valorados",
                     marker=folium.Marker(icon=icon),
                     ).add_to(mapinha)
