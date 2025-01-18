@@ -20,16 +20,13 @@ base_valorados = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrim
 
 
 st.title("Buscador do Patrimônio")
-st.error("Este projeto não possui qualquer vínculo com o Iphan - Instituto do Patrimôno Histórico e Artístico Nacional ou qualquer outro órgão/instuição.")
-
-st.empty()
 
 st.write("## Busca por polígono")
 st.write(
     "Faça o upload de um POLÍGONO georreferenciado para definir a área onde será feita a busca por Bens Culturais acautelados em âmbito federal e, em seguida, clique em **Pesquisar** para exibir os resultados"
 )
 
-st.warning("Formatos de arquivo suportados: KML (Google Earth), Geopackage, GeoJSON")
+st.info("Formatos de arquivo suportados: KML (Google Earth), Geopackage, GeoJSON")
 
 with st.form("busca"):
     area = st.file_uploader("Selecionar área", type=["kml", "gpkg", "geojson"])
@@ -201,3 +198,6 @@ with st.form("busca"):
 
         folium.LayerControl().add_to(mapinha)
         st_folium(mapinha)
+
+
+st.error("**Disclaimer:** Este projeto não possui qualquer vínculo com o Instituto do Patrimôno Histórico e Artístico Nacional - IPHAN ou qualquer outro órgão/instuição.")
