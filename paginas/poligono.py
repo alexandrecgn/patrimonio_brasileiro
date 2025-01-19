@@ -200,4 +200,4 @@ with st.form("busca"):
         st_folium(mapinha)
 
 
-st.error("**Disclaimer:** Este projeto não possui qualquer vínculo com o Instituto do Patrimôno Histórico e Artístico Nacional - IPHAN ou qualquer outro órgão/instuição.")
+st.error("**Disclaimer:** Este projeto não possui nenhum vínculo com o Instituto do Patrimôno Histórico e Artístico Nacional - IPHAN ou qualquer outro órgão/instuição.")
