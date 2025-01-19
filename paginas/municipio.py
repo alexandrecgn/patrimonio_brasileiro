@@ -27,4 +27,4 @@ st.write("## Busca por município")
 
 st.write("Em desenvolvimento")
 st.warning("*A pesquisa por municípios estará disponível em breve.*", icon="🛠️")
-st.error("**Disclaimer:** Este projeto não possui qualquer vínculo com o Instituto do Patrimôno Histórico e Artístico Nacional - IPHAN ou qualquer outro órgão/instuição.")
+st.error("**Disclaimer:** Este projeto não possui nenhum vínculo com o Instituto do Patrimôno Histórico e Artístico Nacional - IPHAN ou qualquer outro órgão/instuição.")
