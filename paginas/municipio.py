@@ -46,15 +46,18 @@ with st.form("busca", border=False):
         index=None,
         placeholder="Selecione o município",
     )
+    
+    if municipio:
+        municipio = municipio.replace(" ", "_")
 
     enviado = st.form_submit_button("Pesquisar")
 
     if enviado:
         area = f"/home/alexandrecgn/DevOps/buscador_do_patrimônio/municipios/{municipio}.geojson"
-        tooltip = folium.Tooltip(text=municipio)
+        tooltip = folium.Tooltip(text=municipio.replace("_", " "))
         folium.GeoJson(
             gpd.read_file(area),
-            name=municipio,
+            name=municipio.replace("_", " "),
             style_function=lambda cor: {"color": "red"},
             tooltip=tooltip,
             ).add_to(mapinha)
