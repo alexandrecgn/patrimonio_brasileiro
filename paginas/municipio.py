@@ -53,7 +53,7 @@ with st.form("busca", border=False):
     enviado = st.form_submit_button("Pesquisar")
 
     if enviado:
-        area = f"https://github.com/alexandrecgn/buscador_patrimonio/blob/v2.1/municipios/{municipio}.geojson"
+        area = f"https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/municipios/{municipio}.geojson"
         tooltip = folium.Tooltip(text=municipio.replace("_", " "))
         folium.GeoJson(
             gpd.read_file(area),
@@ -63,7 +63,7 @@ with st.form("busca", border=False):
             ).add_to(mapinha)
 
         with st.status(
-            "Pesquisando Bens Culturais na área inserida",
+            "Pesquisando Bens Culturais no município selecionado",
             expanded=True,
             ) as status:
             sitios = pesquisar(area, base_sitios)
