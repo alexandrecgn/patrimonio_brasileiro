@@ -53,7 +53,7 @@ with st.form("busca", border=False):
     enviado = st.form_submit_button("Pesquisar")
 
     if enviado:
-        area = f"/home/alexandrecgn/DevOps/buscador_do_patrimônio/municipios/{municipio}.geojson"
+        area = f"https://github.com/alexandrecgn/buscador_patrimonio/blob/v2.1/municipios/{municipio}.geojson"
         tooltip = folium.Tooltip(text=municipio.replace("_", " "))
         folium.GeoJson(
             gpd.read_file(area),
