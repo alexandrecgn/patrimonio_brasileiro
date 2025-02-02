@@ -20,6 +20,7 @@ base_valorados = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrim
 
 
 st.title("Buscador do Patrimônio")
+st.write("---")
 
 st.write("## Busca por polígono")
 st.write(
@@ -28,7 +29,7 @@ st.write(
 
 st.info("Formatos de arquivo suportados: KML (Google Earth), Geopackage, GeoJSON")
 
-with st.form("busca"):
+with st.form("busca", border=False):
     area = st.file_uploader("Selecionar área", type=["kml", "gpkg", "geojson"])
     enviado = st.form_submit_button("Pesquisar")
     
