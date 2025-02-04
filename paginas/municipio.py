@@ -23,7 +23,7 @@ estados_brasileiros = [
     "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"
 ]
 
-municipios_brasileiros = pd.read_json("municipios/0_municipios.json")
+municipios_brasileiros = pd.read_json("municipios/0_municipios.json", encoding_errors="ignore")
 
 st.title("Buscador do Patrimônio")
 st.write("---")
@@ -39,7 +39,7 @@ uf = st.selectbox(
 )
 
 with st.form("busca", border=False):
-    cidades = [cidade["nm_mun"] for cidade in municipios_brasileiros["data"] if cidade["sigla_uf"] == uf]
+    cidades = [cidade["nm_mun"] for cidade in municipios_brasileiros["features"] if cidade["sigla_uf"] == uf]
     municipio = st.selectbox(
         label="Município",
         options=cidades,

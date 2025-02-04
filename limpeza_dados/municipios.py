@@ -1,11 +1,15 @@
 import json
 
-with open("geo/municipios.geojson") as arquivo:
+with open("/home/alexandrecgn/DevOps/buscador_do_patrimônio/limpeza_dados/municipios.geojson") as arquivo:
     municipios = json.load(arquivo)
     print("Arquivo de municípios carregado com sucesso!")
-    i = 0
+    lista_municipios = []
     for item in municipios["features"]:
-        with open(f"municipios/{item["properties"]["nm_mun"]}.geojson", "a") as cidade:
-            json.dump(item, cidade, indent=4)
-        print(f"Município {i} salvo com sucesso!")
-        i += 1
+        nome = item["properties"]["nm_mun"]
+        uf = item["properties"]["sigla_uf"]
+        cidade = dict(nm_mun=nome, sigla_uf=uf)
+        lista_municipios.append(cidade)
+    resultado = json.dumps(lista_municipios)
+    open("municipios.json", mode="w").write(resultado)
+
+print("Arquivo de municípios salvo com sucesso!")
