@@ -1,7 +1,5 @@
 .venv/
 
-limpeza_dados/municipios.ipynb
-
 test/jup.ipynb
 
 __pycache__/
