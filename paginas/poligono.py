@@ -1,9 +1,8 @@
 import folium
 import streamlit as st
 import geopandas as gpd
-import pandas as pd
 from streamlit_folium import st_folium
-from utils import pesquisar, to_dict, refinar_material, refinar_imaterial
+from utils import dataframes_finais
 
 mapinha = folium.Map(tiles="Esri WorldImagery", control_scale=True)
 
@@ -12,19 +11,17 @@ mapinha = folium.Map(tiles="Esri WorldImagery", control_scale=True)
 # tombados - verde
 # valorados - azul
 
-base_sitios = "http://portal.iphan.gov.br/geoserver/SICG/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=SICG%3Asitios&maxFeatures=2147483647&outputFormat=application%2Fjson"
-base_imaterial_pol = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/bens/imaterial_pol.geojson"
-base_imaterial_pt = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/bens/imaterial_pt.geojson"
-base_tombados = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/bens/tombados.geojson"
-base_valorados = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/bens/valorados.geojson"
-
 
 st.title("Buscador do Patrimônio")
-st.write("---")
 
-st.write("## Busca por polígono")
+st.write("----")
+
 st.write(
-    "Faça o upload de um POLÍGONO georreferenciado para definir a área onde será feita a busca por Bens Culturais acautelados em âmbito federal e, em seguida, clique em **Pesquisar** para exibir os resultados"
+    """
+    ## Busca por polígono
+
+    Na seção abaixo, faça o upload de um POLÍGONO georreferenciado para definir a área onde será feita a busca por Bens Culturais acautelados em âmbito federal e, em seguida, clique em **Pesquisar** para exibir os resultados.
+    """
 )
 
 st.info("Formatos de arquivo suportados: KML (Google Earth), Geopackage, GeoJSON")
@@ -46,29 +43,7 @@ with st.form("busca", border=False):
             "Pesquisando Bens Culturais na área inserida",
             expanded=True,
             ) as status:
-            sitios = pesquisar(area, base_sitios)
-            imaterial_pol = pesquisar(area, base_imaterial_pol)
-            imaterial_pt = pesquisar(area, base_imaterial_pt)
-            tombados = pesquisar(area, base_tombados)
-            valorados = pesquisar(area, base_valorados)
-
-            sit_dict = to_dict(sitios)
-            imapol_dict = to_dict(imaterial_pol)
-            imapt_dict = to_dict(imaterial_pt)
-            tom_dict = to_dict(tombados)
-            val_dict = to_dict(valorados)
-
-            tab_sit = refinar_material(sit_dict)
-
-            tab_imtpol = refinar_imaterial(imapol_dict)
-            tab_imtpt = refinar_imaterial(imapt_dict)
-            impol = pd.DataFrame(tab_imtpol)
-            impt = pd.DataFrame(tab_imtpt)
-            tab_im_tot = pd.concat([impol, impt])
-            
-            tab_tmb = refinar_material(tom_dict)
-            
-            tab_val = refinar_material(val_dict)
+            sitios, imaterial_pol, imaterial_pt, tombados, valorados, tab_sit, tab_im_tot, tab_imtpol, tab_imtpt, tab_tmb, tab_val = dataframes_finais(area)
             
             status.update(label="Pesquisa Concluída", state="complete")
 
@@ -200,5 +175,7 @@ with st.form("busca", border=False):
         folium.LayerControl().add_to(mapinha)
         st_folium(mapinha)
 
+
+st.write("----")
 
 st.error("**Disclaimer:** Este projeto não possui nenhum vínculo com o Instituto do Patrimôno Histórico e Artístico Nacional - IPHAN ou qualquer outro órgão/instuição.")
