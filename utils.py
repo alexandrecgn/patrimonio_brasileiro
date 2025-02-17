@@ -104,3 +104,45 @@ def refinar_imaterial(resultado):
         refinar.append({"Nome do bem": nome, "Ficha do bem": ficha})
     refinado = pd.DataFrame(refinar)
     return refinado
+
+
+def dataframes_finais(area):
+    """_summary_
+
+    Args:
+        area (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
+    base_sitios = "http://portal.iphan.gov.br/geoserver/SICG/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=SICG%3Asitios&maxFeatures=2147483647&outputFormat=application%2Fjson"
+    base_imaterial_pol = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/bens/imaterial_pol.geojson"
+    base_imaterial_pt = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/bens/imaterial_pt.geojson"
+    base_tombados = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/bens/tombados.geojson"
+    base_valorados = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/bens/valorados.geojson"
+
+    sitios = pesquisar(area, base_sitios)
+    imaterial_pol = pesquisar(area, base_imaterial_pol)
+    imaterial_pt = pesquisar(area, base_imaterial_pt)
+    tombados = pesquisar(area, base_tombados)
+    valorados = pesquisar(area, base_valorados)
+
+    sit_dict = to_dict(sitios)
+    imapol_dict = to_dict(imaterial_pol)
+    imapt_dict = to_dict(imaterial_pt)
+    tom_dict = to_dict(tombados)
+    val_dict = to_dict(valorados)
+
+    tab_sit = refinar_material(sit_dict)
+
+    tab_imtpol = refinar_imaterial(imapol_dict)
+    tab_imtpt = refinar_imaterial(imapt_dict)
+    impol = pd.DataFrame(tab_imtpol)
+    impt = pd.DataFrame(tab_imtpt)
+    tab_im_tot = pd.concat([impol, impt])
+    
+    tab_tmb = refinar_material(tom_dict)
+    
+    tab_val = refinar_material(val_dict)
+
+    return sitios, imaterial_pol, imaterial_pt, tombados, valorados, tab_sit, tab_im_tot, tab_imtpol, tab_imtpt, tab_tmb, tab_val

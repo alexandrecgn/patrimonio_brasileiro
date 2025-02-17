@@ -3,7 +3,7 @@ import streamlit as st
 import geopandas as gpd
 import pandas as pd
 from streamlit_folium import st_folium
-from utils import pesquisar, to_dict, refinar_material, refinar_imaterial
+from utils import dataframes_finais
 
 mapinha = folium.Map(tiles="Esri WorldImagery", control_scale=True)
 
@@ -12,11 +12,6 @@ mapinha = folium.Map(tiles="Esri WorldImagery", control_scale=True)
 # tombados - verde
 # valorados - azul
 
-base_sitios = "http://portal.iphan.gov.br/geoserver/SICG/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=SICG%3Asitios&maxFeatures=2147483647&outputFormat=application%2Fjson"
-base_imaterial_pol = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/bens/imaterial_pol.geojson"
-base_imaterial_pt = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/bens/imaterial_pt.geojson"
-base_tombados = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/bens/tombados.geojson"
-base_valorados = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/bens/valorados.geojson"
 
 estados_brasileiros = [
     "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA",
@@ -46,18 +41,15 @@ with st.form("busca", border=False):
         index=None,
         placeholder="Selecione o município",
     )
-    
-    if municipio:
-        municipio = municipio.replace(" ", "_")
 
     enviado = st.form_submit_button("Pesquisar")
 
     if enviado:
         area = f"https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/municipios/{(municipio.replace(" ", "_")).encode("ascii", "ignore").decode("ascii")}.geojson"
-        tooltip = folium.Tooltip(text=municipio.replace("_", " "))
+        tooltip = folium.Tooltip(text=municipio)
         folium.GeoJson(
             gpd.read_file(area),
-            name=municipio.replace("_", " "),
+            name=municipio,
             style_function=lambda cor: {"color": "red"},
             tooltip=tooltip,
             ).add_to(mapinha)
@@ -66,29 +58,7 @@ with st.form("busca", border=False):
             "Pesquisando Bens Culturais no município selecionado",
             expanded=True,
             ) as status:
-            sitios = pesquisar(area, base_sitios)
-            imaterial_pol = pesquisar(area, base_imaterial_pol)
-            imaterial_pt = pesquisar(area, base_imaterial_pt)
-            tombados = pesquisar(area, base_tombados)
-            valorados = pesquisar(area, base_valorados)
-
-            sit_dict = to_dict(sitios)
-            imapol_dict = to_dict(imaterial_pol)
-            imapt_dict = to_dict(imaterial_pt)
-            tom_dict = to_dict(tombados)
-            val_dict = to_dict(valorados)
-
-            tab_sit = refinar_material(sit_dict)
-
-            tab_imtpol = refinar_imaterial(imapol_dict)
-            tab_imtpt = refinar_imaterial(imapt_dict)
-            impol = pd.DataFrame(tab_imtpol)
-            impt = pd.DataFrame(tab_imtpt)
-            tab_im_tot = pd.concat([impol, impt])
-            
-            tab_tmb = refinar_material(tom_dict)
-            
-            tab_val = refinar_material(val_dict)
+            sitios, imaterial_pol, imaterial_pt, tombados, valorados, tab_sit, tab_im_tot, tab_imtpol, tab_imtpt, tab_tmb, tab_val = dataframes_finais(area)
             
             status.update(label="Pesquisa Concluída", state="complete")
 
