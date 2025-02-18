@@ -58,7 +58,7 @@ with st.form("busca", border=False):
             "Pesquisando Bens Culturais no município selecionado",
             expanded=True,
             ) as status:
-            sitios, imaterial_pol, imaterial_pt, tombados, valorados, tab_sit, tab_im_tot, tab_imtpol, tab_imtpt, tab_tmb, tab_val = dataframes_finais(area)
+            sitios_pt, sitios_pol, imaterial_pol, imaterial_pt, tombados, valorados, tab_st_tot, tab_sit_pt, sit_pol_dict, tab_im_tot, tab_imtpol, tab_imtpt, tab_tmb, tab_val = dataframes_finais(area)
             
             status.update(label="Pesquisa Concluída", state="complete")
 
@@ -78,7 +78,8 @@ with st.form("busca", border=False):
                 fields=["identificacao_bem"],
                 aliases=["Sítio arqueológico"],
                 )
-
+# TODO - adicionar o tooltip para os polígonos dos sítios
+# TODO - revisar a pesquisa de sítios para exibir também os polígonos
             if tab_sit.empty:
                 st.write("Não foi identificado Patrimônio Arqueológico na área de busca")
             if not tab_sit.empty:
