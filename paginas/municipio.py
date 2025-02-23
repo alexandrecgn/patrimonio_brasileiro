@@ -58,7 +58,7 @@ with st.form("busca", border=False):
             "Pesquisando Bens Culturais no município selecionado",
             expanded=True,
             ) as status:
-            sitios, imaterial_pol, imaterial_pt, tombados, valorados, tab_sit, tab_im_tot, tab_imtpol, tab_imtpt, tab_tmb, tab_val = dataframes_finais(area)
+            sitios_pt, sitios_pol, imaterial_pol, imaterial_pt, tombados, valorados, tab_st_tot, tab_sit_pt, tab_sit_pol, tab_im_tot, tab_imtpol, tab_imtpt, tab_tmb, tab_val = dataframes_finais(area)
             
             status.update(label="Pesquisa Concluída", state="complete")
 
@@ -78,14 +78,43 @@ with st.form("busca", border=False):
                 fields=["identificacao_bem"],
                 aliases=["Sítio arqueológico"],
                 )
+            tooltip = folium.GeoJsonTooltip(
+                fields=["identificacao_bem"],
+                aliases=["Sítio arqueológico"],
+            )
 
-            if tab_sit.empty:
+            if tab_sit_pt.empty and tab_sit_pol.empty:
                 st.write("Não foi identificado Patrimônio Arqueológico na área de busca")
-            if not tab_sit.empty:
-                st.dataframe(tab_sit, use_container_width=True)
+            elif tab_sit_pol.empty and not tab_sit_pt.empty:
+                st.dataframe(tab_sit_pt, use_container_width=True)
                 folium.GeoJson(
-                    sitios,
-                    name="Bens Arqueológicos",
+                    sitios_pt,
+                    name="Bens Arqueológicos (pontos)",
+                    marker=folium.Marker(icon=icon),
+                    zoom_on_click=True,
+                    popup=popup,
+                    ).add_to(mapinha)
+            elif tab_sit_pt.empty and not tab_sit_pol.empty:
+                st.dataframe(tab_sit_pol, use_container_width=True)
+                folium.GeoJson(
+                    sitios_pol,
+                    name="Bens Arqueológicos (polígonos)",
+                    style_function=lambda cor: {"color": "lightgray"},
+                    zoom_on_click=True,
+                    tooltip=tooltip,
+                    ).add_to(mapinha)
+            elif not tab_sit_pt.empty and not tab_sit_pol.empty:
+                st.dataframe(tab_st_tot, use_container_width=True)
+                folium.GeoJson(
+                    sitios_pol,
+                    name="Bens Arqueológicos (polígonos)",
+                    style_function=lambda cor: {"color": "lightgray"},
+                    zoom_on_click=True,
+                    tooltip=tooltip,
+                    ).add_to(mapinha)
+                folium.GeoJson(
+                    sitios_pt,
+                    name="Bens Arqueológicos (pontos)",
                     marker=folium.Marker(icon=icon),
                     zoom_on_click=True,
                     popup=popup,

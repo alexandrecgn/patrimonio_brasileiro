@@ -115,25 +115,32 @@ def dataframes_finais(area):
     Returns:
         _type_: _description_
     """
-    base_sitios = "http://portal.iphan.gov.br/geoserver/SICG/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=SICG%3Asitios&maxFeatures=2147483647&outputFormat=application%2Fjson"
+    base_sitios_pt = "http://portal.iphan.gov.br/geoserver/SICG/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=SICG%3Asitios&maxFeatures=2147483647&outputFormat=application%2Fjson"
+    base_sitios_pol = "https://geoserver.iphan.gov.br/geoserver/SICG/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=SICG%3Asitios_pol&maxFeatures=2147483647&outputFormat=application%2Fjson"
     base_imaterial_pol = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/bens/imaterial_pol.geojson"
     base_imaterial_pt = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/bens/imaterial_pt.geojson"
     base_tombados = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/bens/tombados.geojson"
     base_valorados = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/bens/valorados.geojson"
 
-    sitios = pesquisar(area, base_sitios)
+    sitios_pt = pesquisar(area, base_sitios_pt)
+    sitios_pol = pesquisar(area, base_sitios_pol)
     imaterial_pol = pesquisar(area, base_imaterial_pol)
     imaterial_pt = pesquisar(area, base_imaterial_pt)
     tombados = pesquisar(area, base_tombados)
     valorados = pesquisar(area, base_valorados)
 
-    sit_dict = to_dict(sitios)
+    sit_pt_dict = to_dict(sitios_pt)
+    sit_pol_dict = to_dict(sitios_pol)
     imapol_dict = to_dict(imaterial_pol)
     imapt_dict = to_dict(imaterial_pt)
     tom_dict = to_dict(tombados)
     val_dict = to_dict(valorados)
 
-    tab_sit = refinar_material(sit_dict)
+    tab_sit_pt = refinar_material(sit_pt_dict)
+    tab_sit_pol = refinar_material(sit_pol_dict)
+    stpol = pd.DataFrame(tab_sit_pt)
+    stpt = pd.DataFrame(tab_sit_pol)
+    tab_st_tot = pd.concat([stpol, stpt])
 
     tab_imtpol = refinar_imaterial(imapol_dict)
     tab_imtpt = refinar_imaterial(imapt_dict)
@@ -145,4 +152,4 @@ def dataframes_finais(area):
     
     tab_val = refinar_material(val_dict)
 
-    return sitios, imaterial_pol, imaterial_pt, tombados, valorados, tab_sit, tab_im_tot, tab_imtpol, tab_imtpt, tab_tmb, tab_val
+    return sitios_pt, sitios_pol, imaterial_pol, imaterial_pt, tombados, valorados, tab_st_tot, tab_sit_pt, tab_sit_pol, tab_im_tot, tab_imtpol, tab_imtpt, tab_tmb, tab_val
