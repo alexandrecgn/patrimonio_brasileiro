@@ -152,4 +152,4 @@ def dataframes_finais(area):
     
     tab_val = refinar_material(val_dict)
 
-    return sitios_pt, sitios_pol, imaterial_pol, imaterial_pt, tombados, valorados, tab_st_tot, tab_sit_pt, sit_pol_dict, tab_im_tot, tab_imtpol, tab_imtpt, tab_tmb, tab_val
+    return sitios_pt, sitios_pol, imaterial_pol, imaterial_pt, tombados, valorados, tab_st_tot, tab_sit_pt, tab_sit_pol, tab_im_tot, tab_imtpol, tab_imtpt, tab_tmb, tab_val
