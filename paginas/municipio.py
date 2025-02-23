@@ -83,7 +83,6 @@ with st.form("busca", border=False):
                 aliases=["Sítio arqueológico"],
             )
 
-# TODO - revisar a pesquisa de sítios para exibir também os polígonos
             if tab_sit_pt.empty and tab_sit_pol.empty:
                 st.write("Não foi identificado Patrimônio Arqueológico na área de busca")
             elif tab_sit_pol.empty and not tab_sit_pt.empty:
@@ -100,21 +99,21 @@ with st.form("busca", border=False):
                 folium.GeoJson(
                     sitios_pol,
                     name="Bens Arqueológicos (polígonos)",
-                    marker=folium.Marker(icon=icon),
+                    style_function=lambda cor: {"color": "lightgray"},
                     zoom_on_click=True,
-                    popup=popup,
+                    tooltip=tooltip,
                     ).add_to(mapinha)
             elif not tab_sit_pt.empty and not tab_sit_pol.empty:
                 st.dataframe(tab_st_tot, use_container_width=True)
                 folium.GeoJson(
-                    imaterial_pol,
+                    sitios_pol,
                     name="Bens Arqueológicos (polígonos)",
-                    style_function=lambda cor: {"color": "purple"},
+                    style_function=lambda cor: {"color": "lightgray"},
                     zoom_on_click=True,
                     tooltip=tooltip,
                     ).add_to(mapinha)
                 folium.GeoJson(
-                    imaterial_pt,
+                    sitios_pt,
                     name="Bens Arqueológicos (pontos)",
                     marker=folium.Marker(icon=icon),
                     zoom_on_click=True,
