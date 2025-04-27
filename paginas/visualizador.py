@@ -3,7 +3,7 @@ import streamlit as st
 from streamlit_folium import st_folium
 
 
-mapinha = folium.Map(tiles="Esri WorldImagery", control_scale=True)
+mapinha = folium.Map(tiles="Stadia.AlidadeSatellite", control_scale=True)
 
 # sitios - cinza
 # imaterial - roxo

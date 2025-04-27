@@ -5,7 +5,7 @@ import pandas as pd
 from streamlit_folium import st_folium
 from utils import dataframes_finais
 
-mapinha = folium.Map(tiles="Esri WorldImagery", control_scale=True)
+mapinha = folium.Map(tiles="Stadia.AlidadeSatellite", control_scale=True)
 
 # sitios - cinza
 # imaterial - roxo
