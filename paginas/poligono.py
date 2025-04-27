@@ -173,6 +173,8 @@ with st.form("busca", border=False):
                     ).add_to(mapinha)
 
         folium.LayerControl().add_to(mapinha)
+        folium.plugins.MeasureControl(secondary_length_unit="kilometers", secondary_area_unit="hectares").add_to(mapinha)
+        folium.plugins.MiniMap(tile_layer="Stadia.AlidadeSatellite", toggle_display=True).add_to(mapinha)
         st_folium(mapinha)
 
 
