@@ -3,7 +3,7 @@ import streamlit as st
 from streamlit_folium import st_folium
 
 
-mapinha = folium.Map(tiles="Stadia.AlidadeSatellite", control_scale=True)
+mapinha = folium.Map(tiles="http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}", attr="Google Maps Satellite", control_scale=True)
 
 # sitios - cinza
 # imaterial - roxo
@@ -140,7 +140,7 @@ valorados.add_to(mapinha)
 
 folium.LayerControl().add_to(mapinha)
 folium.plugins.MeasureControl(secondary_length_unit="kilometers", secondary_area_unit="hectares").add_to(mapinha)
-folium.plugins.MiniMap(tile_layer="Stadia.AlidadeSatellite", toggle_display=True).add_to(mapinha)
+folium.plugins.MiniMap(tile_layer="OpenStreetMap.Mapnik", toggle_display=True).add_to(mapinha)
 
 with st.form("mapa", border=False):
     st_folium(mapinha)
