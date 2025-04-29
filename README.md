@@ -10,11 +10,17 @@ O programa ainda está em desenvolvimento. No momento a busca retorna os bens cu
 ## Pesquisar direto do navegador
 
 Para pesquisar a existência de Bens Culturais em uma determinada área:
-1. [Clique aqui](https://buscadorpatrimonio.streamlit.app/) ou acesse https://buscadorpatrimonio.streamlit.app/;
+1. [Clique aqui](https://patrimoniobrasileiro.com.br/) ou acesse https://patrimoniobrasileiro.com.br/;
 2. Insira a poligonal de pesquisa; e
 3. Clique em "Pesquisar".
 
-Ao fim da pesquisa serão exibidas as tabelas de cada tipologia de Bem Cultural existentes na área. 
+Para pesquisar a existência de Bens Culturais em um município:
+1. [Clique aqui](https://patrimoniobrasileiro.com.br/municipio) ou acesse https://patrimoniobrasileiro.com.br/municipio;
+2. Selecione a UF;
+3. Selecione o município; e
+4. Clique em "Pesquisar".
+
+Ao fim da pesquisa serão exibidas as tabelas de cada tipologia de Bem Cultural existentes na área, juntamente com um mapa exibindo a localização de cada bem.
 
 
 
@@ -70,6 +76,14 @@ Exemplo:
 * [x] ~~Tornar os itens mapa clicáveis para exibir um pop-up com as informações do bem~~;
 * [x] ~~Adicionar busca de todos os bens a partir da seleção da Unidade Federativa e município~~;
 * [x] ~~Adicionar visualizador de todos bens~~;
+* [x] ~~Adicionar minimapa na visualização de bens~~;
+* [x] ~~Adicionar botão de tela cheia ao mapa~~;
+* [x] ~~Adicionar ferramenta para medir distância e área no mapa~~;
+* [x] ~~Exibir os bens por clusters variáveis com o nível de zoom~~;
 * [ ] Possibilitar a seleção das tipologias de bens a serem pesquisados;
+* [ ] Possibilitar a seleção das tipologias de bens a serem exibidos no visualizador;
+* [ ] Adicionar IGPs no buscador e visualizador;
+* [ ] Adicionar empreendimentos avaliados pelo Iphan no visualizador;
+* [ ] Refatorar visualizador de bens;
 * [ ] Refatorar main.py.
 
