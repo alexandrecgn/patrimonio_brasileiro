@@ -17,8 +17,8 @@ tom = gpd.read_file("/home/alexandrecgn/DevOps/buscador_do_patrimônio/bens/tomb
 val = gpd.read_file("/home/alexandrecgn/DevOps/buscador_do_patrimônio/bens/valorados.geojson")
 
 
-tom["ficha"] =  "https://sicg.iphan.gov.br/sicg/bem/visualizar/" + tom["id_bem"]
-val["ficha"] =  "https://sicg.iphan.gov.br/sicg/bem/visualizar/" + val["id_bem"]
+tom["ficha"] =  "https://sicg.iphan.gov.br/sicg/bem/visualizar/" + tom["id_bem"].astype(str)
+val["ficha"] =  "https://sicg.iphan.gov.br/sicg/bem/visualizar/" + val["id_bem"].astype(str)
 
 # Salvar os novos arquivos
 

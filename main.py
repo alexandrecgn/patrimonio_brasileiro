@@ -22,6 +22,8 @@ import sys
 import pandas
 from utils import pesquisar, to_dict, refinar_material, refinar_imaterial
 
+# TODO: necessário reescrever todo o programa
+
 
 base_sitios = "http://portal.iphan.gov.br/geoserver/SICG/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=SICG%3Asitios&maxFeatures=2147483647&outputFormat=application%2Fjson"
 base_imaterial = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/bens/imaterial.geojson"

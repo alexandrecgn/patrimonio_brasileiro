@@ -62,48 +62,48 @@ def to_dict(bens):
     resultado = bens.to_geo_dict()
     return resultado
 
-def refinar_material(resultado):
-    """
-    Seleciona o nome do bem cultural material e seu código SICG para gerar
-    um DataFrame com o nome e link da ficha de cadastro de cada bem.
+# def refinar_material(resultado):
+#     """
+#     Seleciona o nome do bem cultural material e seu código SICG para gerar
+#     um DataFrame com o nome e link da ficha de cadastro de cada bem.
 
-    Args:
-        resultado (GeoDict): Dicinário georreferenciado contendo o resultado
-        da busca por bens culturais.
+#     Args:
+#         resultado (GeoDict): Dicinário georreferenciado contendo o resultado
+#         da busca por bens culturais.
 
-    Returns:
-        DataFrame: Objeto contendo o nome do bem cultural e o link para sua
-        ficha no Sistema Integrado de Conhecimento e Gestão - SICG/IPHAN.
-    """
-    refinar = []
-    for bem in resultado["features"]:
-        nome = bem['properties']['identificacao_bem']
-        ficha = f"https://sicg.iphan.gov.br/sicg/bem/visualizar/{bem['properties']['id_bem']}"
-        refinar.append({"Nome do bem": nome, "Ficha do bem": ficha})
-    refinado = pd.DataFrame(refinar)
-    return refinado
+#     Returns:
+#         DataFrame: Objeto contendo o nome do bem cultural e o link para sua
+#         ficha no Sistema Integrado de Conhecimento e Gestão - SICG/IPHAN.
+#     """
+#     refinar = []
+#     for bem in resultado["features"]:
+#         nome = bem['properties']['identificacao_bem']
+#         ficha = f"https://sicg.iphan.gov.br/sicg/bem/visualizar/{bem['properties']['id_bem']}"
+#         refinar.append({"Nome do bem": nome, "Ficha do bem": ficha})
+#     refinado = pd.DataFrame(refinar)
+#     return refinado
 
 
-def refinar_imaterial(resultado):
-    """
-    Seleciona o nome do bem cultural imaterial e o link para sua ficha no BCR
-    para gerar um DataFrame com essas informações.
+# def refinar_imaterial(resultado):
+#     """
+#     Seleciona o nome do bem cultural imaterial e o link para sua ficha no BCR
+#     para gerar um DataFrame com essas informações.
 
-    Args:
-        resultado (GeoDict): Dicinário georreferenciado contendo o resultado
-        da busca por bens culturais.
+#     Args:
+#         resultado (GeoDict): Dicinário georreferenciado contendo o resultado
+#         da busca por bens culturais.
 
-    Returns:
-        DataFrame: Objeto contendo o nome do bem cultural e o link para sua
-        ficha no Banco de Bens Culturais Registrados - BCR/IPHAN.
-    """
-    refinar = []
-    for bem in resultado["features"]:
-        nome = bem["properties"]["titulo"]
-        ficha = bem["properties"]["bcr"]
-        refinar.append({"Nome do bem": nome, "Ficha do bem": ficha})
-    refinado = pd.DataFrame(refinar)
-    return refinado
+#     Returns:
+#         DataFrame: Objeto contendo o nome do bem cultural e o link para sua
+#         ficha no Banco de Bens Culturais Registrados - BCR/IPHAN.
+#     """
+#     refinar = []
+#     for bem in resultado["features"]:
+#         nome = bem["properties"]["titulo"]
+#         ficha = bem["properties"]["bcr"]
+#         refinar.append({"Nome do bem": nome, "Ficha do bem": ficha})
+#     refinado = pd.DataFrame(refinar)
+#     return refinado
 
 
 def dataframes_finais(area):
@@ -124,32 +124,23 @@ def dataframes_finais(area):
 
     sitios_pt = pesquisar(area, base_sitios_pt)
     sitios_pol = pesquisar(area, base_sitios_pol)
-    imaterial_pol = pesquisar(area, base_imaterial_pol)
     imaterial_pt = pesquisar(area, base_imaterial_pt)
+    imaterial_pol = pesquisar(area, base_imaterial_pol)
     tombados = pesquisar(area, base_tombados)
     valorados = pesquisar(area, base_valorados)
 
-    sit_pt_dict = to_dict(sitios_pt)
-    sit_pol_dict = to_dict(sitios_pol)
-    imapol_dict = to_dict(imaterial_pol)
-    imapt_dict = to_dict(imaterial_pt)
-    tom_dict = to_dict(tombados)
-    val_dict = to_dict(valorados)
+    tab_sit_pt = pd.DataFrame(sitios_pt)
+    tab_sit_pt["ficha"] =  "https://sicg.iphan.gov.br/sicg/bem/visualizar/" + tab_sit_pt["id_bem"].astype(str)
+    tab_sit_pol = pd.DataFrame(sitios_pol)
+    tab_sit_pol["ficha"] =  "https://sicg.iphan.gov.br/sicg/bem/visualizar/" + tab_sit_pol["id_bem"].astype(str)
+    tab_st_tot = pd.concat([tab_sit_pt, tab_sit_pol])
 
-    tab_sit_pt = refinar_material(sit_pt_dict)
-    tab_sit_pol = refinar_material(sit_pol_dict)
-    stpol = pd.DataFrame(tab_sit_pt)
-    stpt = pd.DataFrame(tab_sit_pol)
-    tab_st_tot = pd.concat([stpol, stpt])
-
-    tab_imtpol = refinar_imaterial(imapol_dict)
-    tab_imtpt = refinar_imaterial(imapt_dict)
-    impol = pd.DataFrame(tab_imtpol)
-    impt = pd.DataFrame(tab_imtpt)
-    tab_im_tot = pd.concat([impol, impt])
+    tab_imtpt = pd.DataFrame(imaterial_pt)
+    tab_imtpol = pd.DataFrame(imaterial_pol)
+    tab_im_tot = pd.concat([tab_imtpt, tab_imtpol])
     
-    tab_tmb = refinar_material(tom_dict)
+    tab_tmb = pd.DataFrame()
     
-    tab_val = refinar_material(val_dict)
+    tab_val = pd.DataFrame()
 
     return sitios_pt, sitios_pol, imaterial_pol, imaterial_pt, tombados, valorados, tab_st_tot, tab_sit_pt, tab_sit_pol, tab_im_tot, tab_imtpol, tab_imtpt, tab_tmb, tab_val
