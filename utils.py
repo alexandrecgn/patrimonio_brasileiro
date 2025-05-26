@@ -117,10 +117,10 @@ def dataframes_finais(area):
     """
     base_sitios_pt = "http://portal.iphan.gov.br/geoserver/SICG/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=SICG%3Asitios&maxFeatures=2147483647&outputFormat=application%2Fjson"
     base_sitios_pol = "https://geoserver.iphan.gov.br/geoserver/SICG/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=SICG%3Asitios_pol&maxFeatures=2147483647&outputFormat=application%2Fjson"
-    base_imaterial_pol = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/bens/imaterial_pol.geojson"
-    base_imaterial_pt = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/bens/imaterial_pt.geojson"
-    base_tombados = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/bens/tombados.geojson"
-    base_valorados = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/bens/valorados.geojson"
+    base_imaterial_pol = "https://raw.githubusercontent.com/alexandrecgn/patrimonio_brasileiro/refs/heads/main/bens/imaterial_pol.geojson"
+    base_imaterial_pt = "https://raw.githubusercontent.com/alexandrecgn/patrimonio_brasileiro/refs/heads/main/bens/imaterial_pt.geojson"
+    base_tombados = "https://raw.githubusercontent.com/alexandrecgn/patrimonio_brasileiro/refs/heads/main/bens/tombados.geojson"
+    base_valorados = "https://raw.githubusercontent.com/alexandrecgn/patrimonio_brasileiro/refs/heads/main/bens/valorados.geojson"
 
     sitios_pt = pesquisar(area, base_sitios_pt)
     sitios_pol = pesquisar(area, base_sitios_pol)
