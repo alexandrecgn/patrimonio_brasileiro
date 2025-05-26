@@ -62,7 +62,7 @@ def to_dict(bens):
     resultado = bens.to_geo_dict()
     return resultado
 
-def refinar_material(resultado):
+def refinar_arqueologico(resultado):
     """
     Seleciona o nome do bem cultural material e seu código SICG para gerar
     um DataFrame com o nome e link da ficha de cadastro de cada bem.
@@ -84,7 +84,7 @@ def refinar_material(resultado):
     return refinado
 
 
-def refinar_imaterial(resultado):
+def refinar(resultado):
     """
     Seleciona o nome do bem cultural imaterial e o link para sua ficha no BCR
     para gerar um DataFrame com essas informações.
@@ -99,8 +99,8 @@ def refinar_imaterial(resultado):
     """
     refinar = []
     for bem in resultado["features"]:
-        nome = bem["properties"]["titulo"]
-        ficha = bem["properties"]["bcr"]
+        nome = bem["properties"]["identificacao_bem"]
+        ficha = bem["properties"]["ficha"]
         refinar.append({"Nome do bem": nome, "Ficha do bem": ficha})
     refinado = pd.DataFrame(refinar)
     return refinado
@@ -136,20 +136,20 @@ def dataframes_finais(area):
     tom_dict = to_dict(tombados)
     val_dict = to_dict(valorados)
 
-    tab_sit_pt = refinar_material(sit_pt_dict)
-    tab_sit_pol = refinar_material(sit_pol_dict)
+    tab_sit_pt = refinar_arqueologico(sit_pt_dict)
+    tab_sit_pol = refinar_arqueologico(sit_pol_dict)
     stpol = pd.DataFrame(tab_sit_pt)
     stpt = pd.DataFrame(tab_sit_pol)
     tab_st_tot = pd.concat([stpol, stpt])
 
-    tab_imtpol = refinar_imaterial(imapol_dict)
-    tab_imtpt = refinar_imaterial(imapt_dict)
+    tab_imtpol = refinar(imapol_dict)
+    tab_imtpt = refinar(imapt_dict)
     impol = pd.DataFrame(tab_imtpol)
     impt = pd.DataFrame(tab_imtpt)
     tab_im_tot = pd.concat([impol, impt])
     
-    tab_tmb = refinar_material(tom_dict)
+    tab_tmb = refinar(tom_dict)
     
-    tab_val = refinar_material(val_dict)
+    tab_val = refinar(val_dict)
 
     return sitios_pt, sitios_pol, imaterial_pol, imaterial_pt, tombados, valorados, tab_st_tot, tab_sit_pt, tab_sit_pol, tab_im_tot, tab_imtpol, tab_imtpt, tab_tmb, tab_val

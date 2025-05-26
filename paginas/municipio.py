@@ -127,12 +127,12 @@ with st.form("busca", border=False):
             icon = folium.Icon(color="purple")
 
             popup = folium.GeoJsonPopup(
-                fields=["titulo"],
+                fields=["identificacao_bem"],
                 aliases=["Bem Registrado"],
             )
 
             tooltip = folium.GeoJsonTooltip(
-                fields=["titulo"],
+                fields=["identificacao_bem"],
                 aliases=["Bem Registrado"],
             )
 
