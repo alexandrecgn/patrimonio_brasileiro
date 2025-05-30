@@ -21,7 +21,7 @@ estados_brasileiros = [
 
 municipios_brasileiros = pd.read_json("municipios/0_municipios.json", encoding_errors="ignore")
 
-st.title("Buscador do Patrimônio")
+st.title("Patrimônio Brasileiro")
 st.write("---")
 
 
