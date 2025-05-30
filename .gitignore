@@ -1,7 +1,7 @@
 .venv/
 
-test/jup.ipynb
-
 __pycache__/
 
 nginx/
+
+caderno.py
