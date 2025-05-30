@@ -18,7 +18,7 @@ base_imaterial_pt = "https://raw.githubusercontent.com/alexandrecgn/buscador_pat
 base_tombados = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/bens/tombados.geojson"
 base_valorados = "https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/bens/valorados.geojson"
 
-st.title("Buscador do Patrimônio")
+st.title("Patrimônio Brasileiro")
 st.write("---")
 
 

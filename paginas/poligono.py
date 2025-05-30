@@ -13,7 +13,7 @@ cluster = folium.plugins.MarkerCluster().add_to(mapinha)
 # valorados - azul
 
 
-st.title("Buscador do Patrimônio")
+st.title("Patrimônio Brasileiro")
 
 st.write("----")
 
