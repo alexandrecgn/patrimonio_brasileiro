@@ -5,3 +5,5 @@ __pycache__/
 nginx/
 
 caderno.py
+
+__marimo__/
