@@ -1,0 +1,21 @@
+[runner]
+
+magicEnabled = false
+
+
+[theme]
+
+primaryColor = "#525025"
+backgroundColor = "#ECEBBD"
+secondaryBackgroundColor = "#B2AC88"
+textColor = "#354230"
+linkColor = "#4B6F44"
+
+
+[theme.sidebar]
+
+# primaryColor = 
+backgroundColor = "#B2AC88"
+secondaryBackgroundColor = "#ECEBBD"
+# textColor =
+# linkColor =

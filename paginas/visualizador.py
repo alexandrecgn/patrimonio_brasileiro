@@ -147,3 +147,5 @@ with st.status("Carregando visualizador de bens", expanded=True):
     with st.form("mapa", border=False):
         st_folium(mapinha)
         st.form_submit_button(disabled=True)
+
+st.error("**Disclaimer:** Este projeto não possui nenhum vínculo com o Instituto do Patrimôno Histórico e Artístico Nacional - IPHAN ou qualquer outro órgão/instuição.")

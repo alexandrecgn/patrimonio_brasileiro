@@ -8,10 +8,10 @@ st.write("## Entre em contato")
 
 st.write(
     """
-Para sugerir melhorias ou reportar erros:\n
-suporte@patrimoniobrasileiro.com.br
-
-Para contato geral:\n
-contato@patrimoniobrasileiro.com.br
+Para sugerir melhorias ou reportar erros: suporte@patrimoniobrasileiro.com.br
+\n
+Para contato geral: contato@patrimoniobrasileiro.com.br
 """
 )
+
+st.error("**Disclaimer:** Este projeto não possui nenhum vínculo com o Instituto do Patrimôno Histórico e Artístico Nacional - IPHAN ou qualquer outro órgão/instuição.")

@@ -43,7 +43,7 @@ with st.form("busca", border=False):
         placeholder="Selecione o município",
     )
 
-    enviado = st.form_submit_button("Pesquisar")
+    enviado = st.form_submit_button("Pesquisar", type="primary")
 
     if enviado:
         area = f"https://raw.githubusercontent.com/alexandrecgn/buscador_patrimonio/refs/heads/main/municipios/{(municipio.replace(" ", "_")).encode("ascii", "ignore").decode("ascii")}.geojson"
