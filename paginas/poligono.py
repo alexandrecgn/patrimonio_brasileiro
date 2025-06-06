@@ -25,8 +25,6 @@ st.write(
     """
 )
 
-st.warning("Formatos de arquivo suportados: KML (Google Earth), Geopackage, GeoJSON")
-
 with st.form("busca", border=False):
     area = st.file_uploader("Selecionar área", type=["kml", "gpkg", "geojson"])
     enviado = st.form_submit_button("Pesquisar", type="primary")
