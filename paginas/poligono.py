@@ -25,11 +25,11 @@ st.write(
     """
 )
 
-st.info("Formatos de arquivo suportados: KML (Google Earth), Geopackage, GeoJSON")
+st.success("Formatos de arquivo suportados: KML (Google Earth), Geopackage, GeoJSON")
 
 with st.form("busca", border=False):
     area = st.file_uploader("Selecionar área", type=["kml", "gpkg", "geojson"])
-    enviado = st.form_submit_button("Pesquisar")
+    enviado = st.form_submit_button("Pesquisar", type="primary")
     
     if enviado:
         tooltip = folium.Tooltip(text="Área da busca")
