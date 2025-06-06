@@ -5,17 +5,17 @@ magicEnabled = false
 
 [theme]
 
-primaryColor = "#525025"
-backgroundColor = "#ECEBBD"
-secondaryBackgroundColor = "#B2AC88"
-textColor = "#354230"
+primaryColor = "#84593D"
+backgroundColor = "#E5D3B3"
+secondaryBackgroundColor = "#B99976"
+textColor = "#4C2B08"
 linkColor = "#4B6F44"
 
 
 [theme.sidebar]
 
-# primaryColor = 
-backgroundColor = "#B2AC88"
-secondaryBackgroundColor = "#ECEBBD"
-# textColor =
-# linkColor =
+primaryColor = "#525025"
+backgroundColor = "#B99976"
+secondaryBackgroundColor = "#E5D3B3"
+textColor = "#4C2B08"
+linkColor = "#4B6F44"
