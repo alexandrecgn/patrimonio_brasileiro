@@ -44,12 +44,12 @@ tooltip_sitio = folium.GeoJsonTooltip(
 icon_imaterial = folium.Icon(color="purple")
 
 popup_imaterial = folium.GeoJsonPopup(
-    fields=["titulo"],
+    fields=["identificacao_bem"],
     aliases=["Bem Registrado"],
 )
 
 tooltip_imaterial = folium.GeoJsonTooltip(
-    fields=["titulo"],
+    fields=["identificacao_bem"],
     aliases=["Bem Registrado"],
 )
 
@@ -148,4 +148,5 @@ with st.status("Carregando visualizador de bens", expanded=True):
         st_folium(mapinha)
         st.form_submit_button(disabled=True)
 
+st.write("---")
 st.error("**Disclaimer:** Este projeto não possui nenhum vínculo com o Instituto do Patrimôno Histórico e Artístico Nacional - IPHAN ou qualquer outro órgão/instuição.")
