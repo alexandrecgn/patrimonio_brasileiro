@@ -6,7 +6,14 @@ from streamlit_folium import st_folium
 from utils import dataframes_finais
 
 mapinha = folium.Map(tiles="http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}", attr="Google Maps Satellite", control_scale=True)
-cluster = folium.plugins.MarkerCluster().add_to(mapinha)
+cluster_arqueo = folium.plugins.MarkerCluster(name="Patrimônino Arqueológico")
+cluster_imat = folium.plugins.MarkerCluster(name="Patrimônino Imaterial")
+cluster_tomb = folium.plugins.MarkerCluster(name="Patrimônino Tombado")
+cluster_val = folium.plugins.MarkerCluster(name="Patrimônino Valorado")
+cluster_arqueo.add_to(mapinha)
+cluster_imat.add_to(mapinha)
+cluster_tomb.add_to(mapinha)
+cluster_val.add_to(mapinha)
 
 # sitios - cinza
 # imaterial - roxo
@@ -53,7 +60,7 @@ with st.form("busca", border=False):
             name=municipio,
             style_function=lambda cor: {"color": "red"},
             tooltip=tooltip,
-            ).add_to(cluster)
+            ).add_to(mapinha)
 
         with st.status(
             "Pesquisando Bens Culturais no município selecionado",
@@ -91,10 +98,9 @@ with st.form("busca", border=False):
                 folium.GeoJson(
                     sitios_pt,
                     name="Bens Arqueológicos (pontos)",
-                    marker=folium.Marker(icon=icon),
+                    marker=folium.Marker(popup=popup, icon=icon),
                     zoom_on_click=True,
-                    popup=popup,
-                    ).add_to(cluster)
+                    ).add_to(cluster_arqueo)
             elif tab_sit_pt.empty and not tab_sit_pol.empty:
                 st.dataframe(tab_sit_pol, use_container_width=True)
                 folium.GeoJson(
@@ -102,8 +108,8 @@ with st.form("busca", border=False):
                     name="Bens Arqueológicos (polígonos)",
                     style_function=lambda cor: {"color": "lightgray"},
                     zoom_on_click=True,
-                    tooltip=tooltip,
-                    ).add_to(cluster)
+                    popup=popup,
+                    ).add_to(cluster_arqueo)
             elif not tab_sit_pt.empty and not tab_sit_pol.empty:
                 st.dataframe(tab_st_tot, use_container_width=True)
                 folium.GeoJson(
@@ -111,15 +117,14 @@ with st.form("busca", border=False):
                     name="Bens Arqueológicos (polígonos)",
                     style_function=lambda cor: {"color": "lightgray"},
                     zoom_on_click=True,
-                    tooltip=tooltip,
-                    ).add_to(cluster)
+                    popup=popup,
+                    ).add_to(cluster_arqueo)
                 folium.GeoJson(
                     sitios_pt,
                     name="Bens Arqueológicos (pontos)",
-                    marker=folium.Marker(icon=icon),
+                    marker=folium.Marker(popup=popup, icon=icon),
                     zoom_on_click=True,
-                    popup=popup,
-                    ).add_to(cluster)
+                    ).add_to(cluster_arqueo)
         
         with tab2:
             st.header("Bens Imateriais Registrados")
@@ -143,10 +148,9 @@ with st.form("busca", border=False):
                 folium.GeoJson(
                     imaterial_pt,
                     name="Bens Registrados (pontos)",
-                    marker=folium.Marker(icon=icon),
+                    marker=folium.Marker(popup=popup, icon=icon),
                     zoom_on_click=True,
-                    popup=popup,
-                    ).add_to(cluster)
+                    ).add_to(cluster_imat)
             elif tab_imtpt.empty and not tab_imtpol.empty:
                 st.dataframe(tab_imtpol, use_container_width=True)
                 folium.GeoJson(
@@ -155,7 +159,7 @@ with st.form("busca", border=False):
                     style_function=lambda cor: {"color": "purple"},
                     zoom_on_click=True,
                     tooltip=tooltip,
-                    ).add_to(cluster)
+                    ).add_to(cluster_imat)
             elif not tab_imtpt.empty and not tab_imtpol.empty:
                 st.dataframe(tab_im_tot, use_container_width=True)
                 folium.GeoJson(
@@ -164,14 +168,13 @@ with st.form("busca", border=False):
                     style_function=lambda cor: {"color": "purple"},
                     zoom_on_click=True,
                     tooltip=tooltip,
-                    ).add_to(cluster)
+                    ).add_to(cluster_imat)
                 folium.GeoJson(
                     imaterial_pt,
                     name="Bens Registrados (pontos)",
-                    marker=folium.Marker(icon=icon),
+                    marker=folium.Marker(popup=popup, icon=icon),
                     zoom_on_click=True,
-                    popup=popup,
-                    ).add_to(cluster)
+                    ).add_to(cluster_imat)
         
         with tab3:
             st.header("Bens Materiais Tombados")
@@ -190,10 +193,9 @@ with st.form("busca", border=False):
                 folium.GeoJson(
                     tombados,
                     name="Bens Tombados",
-                    marker=folium.Marker(icon=icon),
+                    marker=folium.Marker(popup=popup, icon=icon),
                     zoom_on_click=True,
-                    popup=popup,
-                    ).add_to(cluster)
+                    ).add_to(cluster_tomb)
         
         with tab4:
             st.header("Bens Materiais Valorados")
@@ -212,10 +214,9 @@ with st.form("busca", border=False):
                 folium.GeoJson(
                     valorados,
                     name="Bens Valorados",
-                    marker=folium.Marker(icon=icon),
+                    marker=folium.Marker(popup=popup, icon=icon),
                     zoom_on_click=True,
-                    popup=popup,
-                    ).add_to(cluster)
+                    ).add_to(cluster_val)
 
         folium.LayerControl().add_to(mapinha)
         folium.plugins.MeasureControl(secondary_length_unit="kilometers", secondary_area_unit="hectares").add_to(mapinha)
