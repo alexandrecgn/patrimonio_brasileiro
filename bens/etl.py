@@ -194,5 +194,5 @@ bens_muni_uf.drop(
 )
 
 
-bens_str = bens.map(str)
+bens_str = bens_muni_uf.map(str)
 bens_sql = bens_str.to_sql(name="bens.db", con=engine)
