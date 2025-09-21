@@ -1,45 +1,24 @@
 import marimo
 
-__generated_with = "0.15.3"
+__generated_with = "0.16.0"
 app = marimo.App(width="medium")
 
 
 @app.cell
 def _():
     import geopandas as gpd
-
     return (gpd,)
 
 
 @app.cell
 def _(gpd):
-    bens = gpd.read_file("bens.geojson")
-    return (bens,)
+    bens_pol = gpd.read_file("/home/alexandrecgn/Developer/patrimonio_brasileiro/test/empreendimento_6.gpkg")
+    return (bens_pol,)
 
 
 @app.cell
-def _(bens):
-    bens.set_crs(crs="EPSG:4674", allow_override=True)
-    return
-
-
-@app.cell
-def _(bens):
-    bens.dissolve()
-    return
-
-
-@app.cell
-def _(bens):
-    len(bens)
-    return
-
-
-@app.cell
-def _(bens):
-    bens.to_file(
-        filename="bens/bens.geojson", driver="GeoJSON", engine="fiona", crs="EPSG:4674"
-    )
+def _(bens_pol):
+    bens_pol.explore()
     return
 
 

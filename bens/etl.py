@@ -1,9 +1,10 @@
 import geopandas as gpd
 from sqlalchemy import create_engine
 
-engine = create_engine("sqlite:///./bens.db", echo=True)
+engine_pt = create_engine("sqlite:///./bens_pt.db", echo=True)
+# engine_pol = create_engine("sqlite:///./bens_pol.db", echo=True)
 
-bens = gpd.GeoDataFrame(
+bens_pt = gpd.GeoDataFrame(
     columns=[
         "nome",
         "descricao",
@@ -12,6 +13,23 @@ bens = gpd.GeoDataFrame(
         "classificacao",
         "data_protecao",
         "processo_iphan",
+        "tipo_geom",
+        "geometry",
+    ],
+    geometry="geometry",
+    crs="EPSG:4674",
+)
+
+bens_pol = gpd.GeoDataFrame(
+    columns=[
+        "nome",
+        "descricao",
+        "ficha",
+        "tipo",
+        "classificacao",
+        "data_protecao",
+        "processo_iphan",
+        "tipo_geom",
         "geometry",
     ],
     geometry="geometry",
@@ -36,74 +54,66 @@ for index, row in tombados.iterrows():
     bem = {}
     bem["nome"] = row["identificacao_bem"]
     bem["descricao"] = row["sintese_bem"]
-    bem["ficha"] = f"https://sicg.iphan.gov.br/sicg/bem/visualizar/{
-        row['id_bem']}"
+    bem["ficha"] = f"https://sicg.iphan.gov.br/sicg/bem/visualizar/{row['id_bem']}"
     bem["tipo"] = "tombado"
     bem["classificacao"] = row["ds_classificacao"]
     bem["data_protecao"] = None
     bem["processo_iphan"] = None
-    bem["municipio"] = None
-    bem["uf"] = None
+    bem["tipo_geom"] = "ponto"
     bem["geometry"] = row["geometry"]
-    bens.loc[len(bens)] = bem
+    bens_pt.loc[len(bens_pt)] = bem
 
-print(bens)
+print(bens_pt)
 
 for index, row in valorados.iterrows():
     bem = {}
     bem["nome"] = row["identificacao_bem"]
     bem["descricao"] = row["sintese_bem"]
-    bem["ficha"] = f"https://sicg.iphan.gov.br/sicg/bem/visualizar/{
-        row['id_bem']}"
+    bem["ficha"] = f"https://sicg.iphan.gov.br/sicg/bem/visualizar/{row['id_bem']}"
     bem["tipo"] = "valorado"
     bem["classificacao"] = row["ds_classificacao"]
     bem["data_protecao"] = None
     bem["processo_iphan"] = None
-    bem["municipio"] = None
-    bem["uf"] = None
+    bem["tipo_geom"] = "ponto"
     bem["geometry"] = row["geometry"]
-    bens.loc[len(bens)] = bem
+    bens_pt.loc[len(bens_pt)] = bem
 
-print(bens)
+print(bens_pt)
 
 for index, row in imaterial_pt_sicg.iterrows():
     bem = {}
     bem["nome"] = row["no_bem_imaterial"]
     bem["descricao"] = row["ds_bem_imaterial"]
     bem["ficha"] = (
-        f"https://sicg.iphan.gov.br/sicg/bemImaterial/acao/{
-            row['id_bem_imaterial']}"
+        f"https://sicg.iphan.gov.br/sicg/bemImaterial/acao/{row['id_bem_imaterial']}"
     )
 
     bem["tipo"] = "imaterial"
     bem["classificacao"] = None
     bem["data_protecao"] = None
     bem["processo_iphan"] = None
-    bem["municipio"] = None
-    bem["uf"] = None
+    bem["tipo_geom"] = "ponto"
     bem["geometry"] = row["geometry"]
-    bens.loc[len(bens)] = bem
+    bens_pt.loc[len(bens_pt)] = bem
 
-print(bens)
+print(bens_pt)
 
 for index, row in imaterial_pol_sicg.iterrows():
     bem = {}
     bem["nome"] = row["no_bem_imaterial"]
     bem["descricao"] = row["ds_bem_imaterial"]
     bem["ficha"] = (
-        f"https://sicg.iphan.gov.br/sicg/bemImaterial/acao/{
-            row['id_bem_imaterial']}"
+        f"https://sicg.iphan.gov.br/sicg/bemImaterial/acao/{row['id_bem_imaterial']}"
     )
     bem["tipo"] = "imaterial"
     bem["classificacao"] = None
     bem["data_protecao"] = None
     bem["processo_iphan"] = None
-    bem["municipio"] = None
-    bem["uf"] = None
+    bem["tipo_geom"] = "poligono"
     bem["geometry"] = row["geometry"]
-    bens.loc[len(bens)] = bem
+    bens_pol.loc[len(bens_pol)] = bem
 
-print(bens)
+print(bens_pol)
 
 for index, row in imaterial_pt_bcr.iterrows():
     bem = {}
@@ -114,12 +124,11 @@ for index, row in imaterial_pt_bcr.iterrows():
     bem["classificacao"] = None
     bem["data_protecao"] = None
     bem["processo_iphan"] = None
-    bem["municipio"] = None
-    bem["uf"] = None
+    bem["tipo_geom"] = "ponto"
     bem["geometry"] = row["geometry"]
-    bens.loc[len(bens)] = bem
+    bens_pt.loc[len(bens_pt)] = bem
 
-print(bens)
+print(bens_pt)
 
 for index, row in imaterial_pol_bcr.iterrows():
     bem = {}
@@ -130,58 +139,59 @@ for index, row in imaterial_pol_bcr.iterrows():
     bem["classificacao"] = None
     bem["data_protecao"] = None
     bem["processo_iphan"] = None
-    bem["municipio"] = None
-    bem["uf"] = None
+    bem["tipo_geom"] = "poligono"
     bem["geometry"] = row["geometry"]
-    bens.loc[len(bens)] = bem
+    bens_pol.loc[len(bens_pol)] = bem
 
-print(bens)
+print(bens_pol)
 
 for index, row in sitios_pt.iterrows():
     bem = {}
     bem["nome"] = row["identificacao_bem"]
     bem["descricao"] = row["sintese_bem"]
-    bem["ficha"] = f"https://sicg.iphan.gov.br/sicg/bem/visualizar/{
-        row['id_bem']}"
+    bem["ficha"] = f"https://sicg.iphan.gov.br/sicg/bem/visualizar/{row['id_bem']}"
     bem["tipo"] = "arqueologico"
     bem["classificacao"] = row["ds_classificacao"]
     bem["data_protecao"] = None
     bem["processo_iphan"] = None
-    bem["municipio"] = None
-    bem["uf"] = None
+    bem["tipo_geom"] = "ponto"
     bem["geometry"] = row["geometry"]
-    bens.loc[len(bens)] = bem
+    bens_pt.loc[len(bens_pt)] = bem
 
-print(bens)
+print(bens_pt)
 
 for index, row in sitios_pol.iterrows():
     bem = {}
     bem["nome"] = row["identificacao_bem"]
     bem["descricao"] = row["sintese_bem"]
-    bem["ficha"] = f"https://sicg.iphan.gov.br/sicg/bem/visualizar/{
-        row['id_bem']}"
+    bem["ficha"] = f"https://sicg.iphan.gov.br/sicg/bem/visualizar/{row['id_bem']}"
     bem["tipo"] = "arqueologico"
     bem["classificacao"] = row["ds_classificacao"]
     bem["data_protecao"] = None
     bem["processo_iphan"] = None
-    bem["municipio"] = None
-    bem["uf"] = None
+    bem["tipo_geom"] = "poligono"
     bem["geometry"] = row["geometry"]
-    bens.loc[len(bens)] = bem
+    bens_pol.loc[len(bens_pol)] = bem
 
-print(bens)
+print(bens_pol)
 
-bens.set_crs("EPSG:4674")
+bens_pt.set_crs("EPSG:4674", inplace=True)
+bens_pol.set_crs("EPSG:4674", inplace=True)
 
 municipios = gpd.read_file("limpeza_dados/municipios.geojson")
-municipios.set_crs("EPSG:4674")
+municipios.set_crs("EPSG:4674", inplace=True)
 
-bens_muni_uf = bens.sjoin(df=municipios, how="inner", predicate="intersects")
-bens_muni_uf.set_crs("EPSG:4674")
-bens_muni_uf.rename(columns={"nm_mun": "municipio",
-                    "sigla_uf": "uf"}, inplace=True)
+bens_muni_uf_pt = bens_pt.sjoin(df=municipios, how="inner", predicate="intersects")
+bens_muni_uf_pt.set_crs("EPSG:4674", inplace=True)
+bens_muni_uf_pt.rename(
+    columns={
+        "nm_mun": "municipio",
+        "sigla_uf": "uf",
+    },
+    inplace=True,
+)
 
-bens_muni_uf.drop(
+bens_muni_uf_pt.drop(
     columns=[
         "cd_recorte",
         "quadro",
@@ -194,5 +204,45 @@ bens_muni_uf.drop(
 )
 
 
-bens_str = bens_muni_uf.map(str)
-bens_sql = bens_str.to_sql(name="bens.db", con=engine)
+bens_muni_uf_pol = bens_pol.sjoin(df=municipios, how="inner", predicate="intersects")
+bens_muni_uf_pol.set_crs("EPSG:4674", inplace=True)
+bens_muni_uf_pol.rename(
+    columns={
+        "nm_mun": "municipio",
+        "sigla_uf": "uf",
+    },
+    inplace=True,
+)
+
+bens_muni_uf_pol.drop(
+    columns=[
+        "cd_recorte",
+        "quadro",
+        "cd_uf",
+        "cd_mun",
+        "area_km2",
+        "index_right",
+    ],
+    inplace=True,
+)
+
+
+bens_x_pt = bens_muni_uf_pt.explode()
+# bens_x_pol = bens_muni_uf_pol.explode()
+
+print(bens_x_pt, bens_muni_uf_pol)
+
+
+bens_x_pt.to_file(
+    filename="bens/bens_pt.geojson",
+    driver="GeoJSON",
+    engine="fiona",
+    crs="EPSG:4674",
+)
+
+bens_muni_uf_pol.to_file(
+    filename="bens/bens_pol.geojson",
+    driver="GeoJSON",
+    engine="fiona",
+    crs="EPSG:4674",
+)
