@@ -14,7 +14,7 @@ Copyright© 2024 Alexandre Cavalcanti
     See the GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with "Buscador do Patrimônio". If not, see <https://www.gnu.org/licenses/>. 
+    along with "Buscador do Patrimônio". If not, see <https://www.gnu.org/licenses/>.
 
 """
 
@@ -31,17 +31,18 @@ def pesquisar(area, base_bens):
     Args:
         poligono (GeoDataFrame): polígono contendo a área na qual
         se pretende fazer a busca por bens culturais.
-        
+
         base_bens (string): string com a URL da base de dados a ser
         consultada.
-    
+
     Return:
         GeoDataFrame: Recorte dos bens culturais identificados dentro
         da área de busca.
     """
     busca = gpd.read_file(area)
     bens_culturais = gpd.read_file(base_bens)
-    bens = gpd.overlay(busca, bens_culturais, how="intersection", keep_geom_type=False)
+    bens = gpd.overlay(busca, bens_culturais,
+                       how="intersection", keep_geom_type=False)
     if "dt_cadastro" in bens.columns:
         bens = bens.drop(columns=["dt_cadastro"])
     return bens
@@ -62,6 +63,7 @@ def to_dict(bens):
     resultado = bens.to_geo_dict()
     return resultado
 
+
 def refinar_arqueologico(resultado):
     """
     Seleciona o nome do bem cultural material e seu código SICG para gerar
@@ -77,8 +79,10 @@ def refinar_arqueologico(resultado):
     """
     refinar = []
     for bem in resultado["features"]:
-        nome = bem['properties']['identificacao_bem']
-        ficha = f"https://sicg.iphan.gov.br/sicg/bem/visualizar/{bem['properties']['id_bem']}"
+        nome = bem["properties"]["identificacao_bem"]
+        ficha = f"https://sicg.iphan.gov.br/sicg/bem/visualizar/{
+            bem['properties']['id_bem']
+        }"
         refinar.append({"Nome do bem": nome, "Ficha do bem": ficha})
     refinado = pd.DataFrame(refinar)
     return refinado
@@ -147,9 +151,128 @@ def dataframes_finais(area):
     impol = pd.DataFrame(tab_imtpol)
     impt = pd.DataFrame(tab_imtpt)
     tab_im_tot = pd.concat([impol, impt])
-    
+
     tab_tmb = refinar(tom_dict)
-    
+
     tab_val = refinar(val_dict)
 
-    return sitios_pt, sitios_pol, imaterial_pol, imaterial_pt, tombados, valorados, tab_st_tot, tab_sit_pt, tab_sit_pol, tab_im_tot, tab_imtpol, tab_imtpt, tab_tmb, tab_val
+    return (
+        sitios_pt,
+        sitios_pol,
+        imaterial_pol,
+        imaterial_pt,
+        tombados,
+        valorados,
+        tab_st_tot,
+        tab_sit_pt,
+        tab_sit_pol,
+        tab_im_tot,
+        tab_imtpol,
+        tab_imtpt,
+        tab_tmb,
+        tab_val,
+    )
+
+
+###############################################################################
+# A partir daqui estão as funções escritas para o refactory do site.
+###############################################################################
+
+
+def normalizar_material(gdf, tipo_bem, geometria):
+    bens = gpd.GeoDataFrame(
+        columns=[
+            "nome",
+            "descricao",
+            "ficha",
+            "tipo",
+            "classificacao",
+            "data_protecao",
+            "processo_iphan",
+            "tipo_geom",
+            "geometry",
+        ],
+        geometry="geometry",
+        crs="EPSG:4674",
+    )
+
+    for index, row in gdf.iterrows():
+        bem = {}
+        bem["nome"] = row["identificacao_bem"]
+        bem["descricao"] = row["sintese_bem"]
+        bem["ficha"] = f"https://sicg.iphan.gov.br/sicg/bem/visualizar/{
+            row['id_bem']}"
+        bem["tipo"] = f"{tipo_bem}"
+        bem["classificacao"] = row["ds_classificacao"]
+        bem["data_protecao"] = None
+        bem["processo_iphan"] = None
+        bem["tipo_geom"] = f"{geometria}"
+        bem["geometry"] = row["geometry"]
+        bens.loc[len(bens)] = bem
+    return bens
+
+
+def normalizar_imaterial_sicg(gdf, tipo_bem, geometria):
+    bens = gpd.GeoDataFrame(
+        columns=[
+            "nome",
+            "descricao",
+            "ficha",
+            "tipo",
+            "classificacao",
+            "data_protecao",
+            "processo_iphan",
+            "tipo_geom",
+            "geometry",
+        ],
+        geometry="geometry",
+        crs="EPSG:4674",
+    )
+
+    for index, row in gdf.iterrows():
+        bem = {}
+        bem["nome"] = row["no_bem_imaterial"]
+        bem["descricao"] = row["ds_bem_imaterial"]
+        bem["ficha"] = f"https://sicg.iphan.gov.br/sicg/bemImaterial/acao/{
+            row['id_bem_imaterial']
+        }"
+        bem["tipo"] = f"{tipo_bem}"
+        bem["classificacao"] = None
+        bem["data_protecao"] = None
+        bem["processo_iphan"] = None
+        bem["tipo_geom"] = f"{geometria}"
+        bem["geometry"] = row["geometry"]
+        bens.loc[len(bens)] = bem
+    return bens
+
+
+def normalizar_imaterial_bcr(gdf, tipo_bem, geometria):
+    bens = gpd.GeoDataFrame(
+        columns=[
+            "nome",
+            "descricao",
+            "ficha",
+            "tipo",
+            "classificacao",
+            "data_protecao",
+            "processo_iphan",
+            "tipo_geom",
+            "geometry",
+        ],
+        geometry="geometry",
+        crs="EPSG:4674",
+    )
+
+    for index, row in gdf.iterrows():
+        bem = {}
+        bem["nome"] = row["identificacao_bem"]
+        bem["descricao"] = None
+        bem["ficha"] = row["ficha"]
+        bem["tipo"] = f"{tipo_bem}"
+        bem["classificacao"] = None
+        bem["data_protecao"] = None
+        bem["processo_iphan"] = None
+        bem["tipo_geom"] = f"{geometria}"
+        bem["geometry"] = row["geometry"]
+        bens.loc[len(bens)] = bem
+    return bens
