@@ -1,7 +1,7 @@
 
-# Buscador do Patrimônio
+# Patrimônio Brasileiro 
 
-O Buscador do Patrimônio é um programa escrito em Python para buscar Bens Culturais acautelados em nível federal na área de um polígono definido pelo usuário.
+O Patrimônio Brasileiro é um programa escrito em Python para buscar Bens Culturais acautelados em nível federal na área de um polígono definido pelo usuário.
 
 Os Bens Culturais acautelados em nível federal são aqueles sob a gestão do Iphan - Instituto do Patrimônio Histórico e Artístico Nacional, protegidos pelo Decreto-Lei nº 25/1937; Lei nº 3.924/1961; Decreto nº 3.551/2000; e Lei nº 11.483/2007.
 
