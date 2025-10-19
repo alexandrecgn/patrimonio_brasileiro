@@ -76,10 +76,11 @@ Exemplo:
 * [x] ~~Tornar os itens mapa clicáveis para exibir um pop-up com as informações do bem~~;
 * [x] ~~Adicionar busca de todos os bens a partir da seleção da Unidade Federativa e município~~;
 * [x] ~~Adicionar visualizador de todos bens~~;
-* [x] ~~Adicionar minimapa na visualização de bens~~;
-* [x] ~~Adicionar botão de tela cheia ao mapa~~;
-* [x] ~~Adicionar ferramenta para medir distância e área no mapa~~;
-* [x] ~~Exibir os bens por clusters variáveis com o nível de zoom~~;
+* [ ] Adicionar cores diferentes por tipo de bem;
+* [ ] Adicionar minimapa na visualização de bens;
+* [ ] Adicionar botão de tela cheia ao mapa;
+* [ ] Adicionar ferramenta para medir distância e área no mapa;
+* [ ] Exibir os bens por clusters variáveis com o nível de zoom;
 * [ ] Possibilitar a seleção das tipologias de bens a serem pesquisados;
 * [ ] Possibilitar a seleção das tipologias de bens a serem exibidos no visualizador;
 * [ ] Adicionar IGPs no buscador e visualizador;

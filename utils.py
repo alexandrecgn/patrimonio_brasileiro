@@ -51,11 +51,6 @@ def pesquisar(area):
     return resultado_pol, resultado_pt
 
 
-###############################################################################
-# A partir daqui estão as funções escritas para o refactory do site.
-###############################################################################
-
-
 def normalizar_material(gdf, tipo_bem, geometria):
     bens = gpd.GeoDataFrame(
         columns=[
