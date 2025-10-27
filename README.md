@@ -78,6 +78,7 @@ Exemplo:
 * [x] ~~Refatorar poligono.py;~~
 * [ ] Refatorar municipio.py;
 * [ ] Refatorar visualizador.py;
+* [ ] Refatorar main.py;
 * [ ] Adicionar cores diferentes por tipo de bem;
 * [ ] Adicionar minimapa na visualização de bens;
 * [ ] Adicionar botão de tela cheia ao mapa;
