@@ -1,7 +1,7 @@
 
-# Buscador do Patrimônio
+# Patrimônio Brasileiro 
 
-O Buscador do Patrimônio é um programa escrito em Python para buscar Bens Culturais acautelados em nível federal na área de um polígono definido pelo usuário.
+O Patrimônio Brasileiro é um programa escrito em Python para buscar Bens Culturais acautelados em nível federal na área de um polígono definido pelo usuário.
 
 Os Bens Culturais acautelados em nível federal são aqueles sob a gestão do Iphan - Instituto do Patrimônio Histórico e Artístico Nacional, protegidos pelo Decreto-Lei nº 25/1937; Lei nº 3.924/1961; Decreto nº 3.551/2000; e Lei nº 11.483/2007.
 
@@ -74,16 +74,20 @@ Exemplo:
 * [x] ~~Adicionar basemap de imagem de satélite ao mapa~~;
 * [x] ~~Adicionar escala ao mapa~~;
 * [x] ~~Tornar os itens mapa clicáveis para exibir um pop-up com as informações do bem~~;
-* [x] ~~Adicionar busca de todos os bens a partir da seleção da Unidade Federativa e município~~;
-* [x] ~~Adicionar visualizador de todos bens~~;
-* [x] ~~Adicionar minimapa na visualização de bens~~;
-* [x] ~~Adicionar botão de tela cheia ao mapa~~;
-* [x] ~~Adicionar ferramenta para medir distância e área no mapa~~;
-* [x] ~~Exibir os bens por clusters variáveis com o nível de zoom~~;
+* [x] ~~Refatorar utils.py;~~
+* [x] ~~Refatorar poligono.py;~~
+* [ ] Refatorar municipio.py;
+* [ ] Refatorar visualizador.py;
+* [ ] Adicionar cores diferentes por tipo de bem;
+* [ ] Adicionar minimapa na visualização de bens;
+* [ ] Adicionar botão de tela cheia ao mapa;
+* [ ] Adicionar ferramenta para medir distância e área no mapa;
+* [ ] Exibir os bens por clusters variáveis com o nível de zoom;
 * [ ] Possibilitar a seleção das tipologias de bens a serem pesquisados;
 * [ ] Possibilitar a seleção das tipologias de bens a serem exibidos no visualizador;
+* [ ] Adicionar busca de todos os bens a partir da seleção da Unidade Federativa e município;
+* [ ] Adicionar visualizador de todos bens;
 * [ ] Adicionar IGPs no buscador e visualizador;
-* [ ] Adicionar empreendimentos avaliados pelo Iphan no visualizador;
-* [ ] Refatorar visualizador de bens;
-* [ ] Refatorar main.py.
+* [ ] Adicionar empreendimentos avaliados pelo Iphan no visualizador; e
+* [ ] Aprimorar performance do retorno dos resultados com o cache dos dados.
 

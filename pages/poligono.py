@@ -1,23 +1,38 @@
 import folium
 import streamlit as st
+import pandas as pd
 import geopandas as gpd
 from streamlit_folium import st_folium
-from utils import dataframes_finais
+from utils import pesquisar
 
-mapinha = folium.Map(tiles="http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}", attr="Google Maps Satellite", control_scale=True)
-cluster_arqueo = folium.plugins.MarkerCluster(name="Patrimônino Arqueológico")
-cluster_imat = folium.plugins.MarkerCluster(name="Patrimônino Imaterial")
-cluster_tomb = folium.plugins.MarkerCluster(name="Patrimônino Tombado")
-cluster_val = folium.plugins.MarkerCluster(name="Patrimônino Valorado")
-cluster_arqueo.add_to(mapinha)
-cluster_imat.add_to(mapinha)
-cluster_tomb.add_to(mapinha)
-cluster_val.add_to(mapinha)
 
-# sitios - cinza
-# imaterial - roxo
-# tombados - verde
-# valorados - azul
+st.set_page_config(layout="wide")
+
+#  ----------------------------------------------------------------------------------------------------------------
+mapinha = folium.Map(
+    tiles="http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}",
+    attr="Google Maps Satellite",
+    control_scale=True,
+    prefer_canvas=True,
+    font_size="0.8rem",
+    )
+tooltip_area = folium.Tooltip(text="Área da busca")
+icon = folium.Icon(color="lightgray")
+popup1 = folium.GeoJsonPopup(
+                fields=["nome", "tipo", "ficha"],
+                aliases=["Nome do Bem:", "Tipo:", "Ficha do bem:"],
+                max_width=500,
+                localize=True,
+)
+popup2 = folium.GeoJsonPopup(
+                fields=["nome", "tipo", "ficha"],
+                aliases=["Nome do Bem:", "Tipo:", "Ficha do bem:"],
+                max_width=500,
+                localize=True,
+)
+marker = folium.Marker(popup=popup1, icon=icon)
+
+#  ----------------------------------------------------------------------------------------------------------------
 
 
 st.title("Patrimônio Brasileiro")
@@ -33,181 +48,50 @@ st.write(
 )
 
 with st.form("busca", border=False):
-    area = st.file_uploader("Selecionar área", type=["kml", "gpkg", "geojson"])
-    enviado = st.form_submit_button("Pesquisar", type="primary")
+    with st.container(border=True):
+        area = st.file_uploader("Selecionar área", type=["kml", "gpkg", "geojson"])
+        enviado = st.form_submit_button("Pesquisar", type="primary")
     
     if enviado:
-        tooltip = folium.Tooltip(text="Área da busca")
         folium.GeoJson(
             gpd.read_file(area),
             name="Polígono de busca",
             style_function=lambda cor: {"color": "red"},
-            tooltip=tooltip,
+            tooltip=tooltip_area,
             ).add_to(mapinha)
 
         with st.status(
             "Pesquisando Bens Culturais na área inserida",
             expanded=True,
             ) as status:
-            sitios_pt, sitios_pol, imaterial_pol, imaterial_pt, tombados, valorados, tab_st_tot, tab_sit_pt, tab_sit_pol, tab_im_tot, tab_imtpol, tab_imtpt, tab_tmb, tab_val = dataframes_finais(area)
-            
+            resultado_pol, resultado_pt = pesquisar(area=area)
+
+            folium.GeoJson(
+                data=resultado_pol,
+                name="Bens Culturais (polígonos)",
+                style_function=lambda cor: {"color": "yellow"},
+                popup=popup1,
+                ).add_to(mapinha)
+            folium.GeoJson(
+                data=resultado_pt,
+                name="Bens Culturais (pontos)",
+                marker=marker,
+                popup=popup2,
+                ).add_to(mapinha)
+
+            folium.LayerControl().add_to(mapinha)
+            # folium.plugins.MeasureControl(secondary_length_unit="kilometers", secondary_area_unit="hectares").add_to(mapinha)
+            # folium.plugins.MiniMap(tile_layer="OpenStreetMap.Mapnik", toggle_display=True).add_to(mapinha)
+            # folium.plugins.Fullscreen().add_to(mapinha)
+        
             status.update(label="Pesquisa Concluída", state="complete")
-
-        tab1, tab2, tab3, tab4 = st.tabs([
-            "Patrimônio Arqueológico",
-            "Patrimônio Imaterial",
-            "Patrimônio Tombado",
-            "Patrimônio Ferroviário",
-            ])
-
-        with tab1:
-            st.header("Sítios Arqueológicos Cadastrados")
-            
-            icon = folium.Icon(color="lightgray")
-
-            popup = folium.GeoJsonPopup(
-                fields=["identificacao_bem"],
-                aliases=["Sítio arqueológico"],
+            st_folium(
+                fig=mapinha,
+                use_container_width=True
                 )
-            tooltip = folium.GeoJsonTooltip(
-                fields=["identificacao_bem"],
-                aliases=["Sítio arqueológico"],
-            )
-
-            if tab_sit_pt.empty and tab_sit_pol.empty:
-                st.write("Não foi identificado Patrimônio Arqueológico na área de busca")
-            elif tab_sit_pol.empty and not tab_sit_pt.empty:
-                st.dataframe(tab_sit_pt, use_container_width=True)
-                folium.GeoJson(
-                    sitios_pt,
-                    name="Bens Arqueológicos (pontos)",
-                    marker=folium.Marker(popup=popup, icon=icon),
-                    zoom_on_click=True,
-                    ).add_to(cluster_arqueo)
-            elif tab_sit_pt.empty and not tab_sit_pol.empty:
-                st.dataframe(tab_sit_pol, use_container_width=True)
-                folium.GeoJson(
-                    sitios_pol,
-                    name="Bens Arqueológicos (polígonos)",
-                    style_function=lambda cor: {"color": "lightgray"},
-                    zoom_on_click=True,
-                    popup=popup,
-                    ).add_to(cluster_arqueo)
-            elif not tab_sit_pt.empty and not tab_sit_pol.empty:
-                st.dataframe(tab_st_tot, use_container_width=True)
-                folium.GeoJson(
-                    sitios_pol,
-                    name="Bens Arqueológicos (polígonos)",
-                    style_function=lambda cor: {"color": "lightgray"},
-                    zoom_on_click=True,
-                    popup=popup,
-                    ).add_to(cluster_arqueo)
-                folium.GeoJson(
-                    sitios_pt,
-                    name="Bens Arqueológicos (pontos)",
-                    marker=folium.Marker(popup=popup, icon=icon),
-                    zoom_on_click=True,
-                    ).add_to(cluster_arqueo)
-        
-        with tab2:
-            st.header("Bens Imateriais Registrados")
-            
-            icon = folium.Icon(color="purple")
-
-            popup = folium.GeoJsonPopup(
-                fields=["identificacao_bem"],
-                aliases=["Bem Registrado"],
-            )
-
-            tooltip = folium.GeoJsonTooltip(
-                fields=["identificacao_bem"],
-                aliases=["Bem Registrado"],
-            )
-
-            if tab_imtpol.empty and tab_imtpt.empty:
-                st.write("Não foi identificado Patrimônio Imaterial na área de busca")
-            elif tab_imtpol.empty and not tab_imtpt.empty:
-                st.dataframe(tab_imtpt, use_container_width=True)
-                folium.GeoJson(
-                    imaterial_pt,
-                    name="Bens Registrados (pontos)",
-                    marker=folium.Marker(popup=popup, icon=icon),
-                    zoom_on_click=True,
-                    ).add_to(cluster_imat)
-            elif tab_imtpt.empty and not tab_imtpol.empty:
-                st.dataframe(tab_imtpol, use_container_width=True)
-                folium.GeoJson(
-                    imaterial_pol,
-                    name="Bens Registrados (polígonos)",
-                    style_function=lambda cor: {"color": "purple"},
-                    zoom_on_click=True,
-                    tooltip=tooltip,
-                    ).add_to(cluster_imat)
-            elif not tab_imtpt.empty and not tab_imtpol.empty:
-                st.dataframe(tab_im_tot, use_container_width=True)
-                folium.GeoJson(
-                    imaterial_pol,
-                    name="Bens Registrados (polígonos)",
-                    style_function=lambda cor: {"color": "purple"},
-                    zoom_on_click=True,
-                    tooltip=tooltip,
-                    ).add_to(cluster_imat)
-                folium.GeoJson(
-                    imaterial_pt,
-                    name="Bens Registrados (pontos)",
-                    marker=folium.Marker(popup=popup, icon=icon),
-                    zoom_on_click=True,
-                    ).add_to(cluster_imat)
-        
-        with tab3:
-            st.header("Bens Materiais Tombados")
-
-            icon = folium.Icon(color="green")
-
-            popup = folium.GeoJsonPopup(
-                fields=["identificacao_bem"],
-                aliases=["Bem Tombado"],
-                )
-
-            if tab_tmb.empty:
-                st.write("Não foi identificado Patrimônio Tombado na área de busca")
-            if not tab_tmb.empty:
-                st.dataframe(tab_tmb, use_container_width=True)
-                folium.GeoJson(
-                    tombados,
-                    name="Bens Tombados",
-                    marker=folium.Marker(popup=popup, icon=icon),
-                    zoom_on_click=True,
-                    ).add_to(cluster_tomb)
-        
-        with tab4:
-            st.header("Bens Materiais Valorados")
-
-            icon = folium.Icon(color="blue")
-
-            popup = folium.GeoJsonPopup(
-                fields=["identificacao_bem"],
-                aliases=["Bem Valorado"],
-                )
-
-            if tab_val.empty:
-                st.write("Não foi identificado Patrimônio Ferroviário na área de busca")
-            if not tab_val.empty:
-                st.dataframe(tab_val, use_container_width=True)
-                folium.GeoJson(
-                    valorados,
-                    name="Bens Valorados",
-                    marker=folium.Marker(popup=popup, icon=icon),
-                    zoom_on_click=True,
-                    ).add_to(cluster_val)
-
-        folium.LayerControl().add_to(mapinha)
-        folium.plugins.MeasureControl(secondary_length_unit="kilometers", secondary_area_unit="hectares").add_to(mapinha)
-        folium.plugins.MiniMap(tile_layer="OpenStreetMap.Mapnik", toggle_display=True).add_to(mapinha)
-        folium.plugins.Fullscreen().add_to(mapinha)
-        
-        st_folium(mapinha)
-
+        with st.container(border=True):
+            tabela = pd.concat([resultado_pol, resultado_pt])
+            st.dataframe(tabela)
 
 st.write("----")
 
