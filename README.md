@@ -74,8 +74,10 @@ Exemplo:
 * [x] ~~Adicionar basemap de imagem de satélite ao mapa~~;
 * [x] ~~Adicionar escala ao mapa~~;
 * [x] ~~Tornar os itens mapa clicáveis para exibir um pop-up com as informações do bem~~;
-* [x] ~~Adicionar busca de todos os bens a partir da seleção da Unidade Federativa e município~~;
-* [x] ~~Adicionar visualizador de todos bens~~;
+* [x] ~~Refatorar utils.py;~~
+* [x] ~~Refatorar poligono.py;~~
+* [ ] Refatorar municipio.py;
+* [ ] Refatorar visualizador.py;
 * [ ] Adicionar cores diferentes por tipo de bem;
 * [ ] Adicionar minimapa na visualização de bens;
 * [ ] Adicionar botão de tela cheia ao mapa;
@@ -83,8 +85,9 @@ Exemplo:
 * [ ] Exibir os bens por clusters variáveis com o nível de zoom;
 * [ ] Possibilitar a seleção das tipologias de bens a serem pesquisados;
 * [ ] Possibilitar a seleção das tipologias de bens a serem exibidos no visualizador;
+* [ ] Adicionar busca de todos os bens a partir da seleção da Unidade Federativa e município;
+* [ ] Adicionar visualizador de todos bens;
 * [ ] Adicionar IGPs no buscador e visualizador;
-* [ ] Adicionar empreendimentos avaliados pelo Iphan no visualizador;
-* [ ] Refatorar visualizador de bens;
-* [ ] Refatorar main.py.
+* [ ] Adicionar empreendimentos avaliados pelo Iphan no visualizador; e
+* [ ] Aprimorar performance do retorno dos resultados com o cache dos dados.
 

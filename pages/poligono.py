@@ -1,5 +1,6 @@
 import folium
 import streamlit as st
+import pandas as pd
 import geopandas as gpd
 from streamlit_folium import st_folium
 from utils import pesquisar
@@ -20,11 +21,13 @@ icon = folium.Icon(color="lightgray")
 popup1 = folium.GeoJsonPopup(
                 fields=["nome", "tipo", "ficha"],
                 aliases=["Nome do Bem:", "Tipo:", "Ficha do bem:"],
+                max_width=500,
                 localize=True,
 )
 popup2 = folium.GeoJsonPopup(
                 fields=["nome", "tipo", "ficha"],
                 aliases=["Nome do Bem:", "Tipo:", "Ficha do bem:"],
+                max_width=500,
                 localize=True,
 )
 marker = folium.Marker(popup=popup1, icon=icon)
@@ -45,8 +48,9 @@ st.write(
 )
 
 with st.form("busca", border=False):
-    area = st.file_uploader("Selecionar área", type=["kml", "gpkg", "geojson"])
-    enviado = st.form_submit_button("Pesquisar", type="primary")
+    with st.container(border=True):
+        area = st.file_uploader("Selecionar área", type=["kml", "gpkg", "geojson"])
+        enviado = st.form_submit_button("Pesquisar", type="primary")
     
     if enviado:
         folium.GeoJson(
@@ -81,8 +85,13 @@ with st.form("busca", border=False):
             # folium.plugins.Fullscreen().add_to(mapinha)
         
             status.update(label="Pesquisa Concluída", state="complete")
-            st_folium(mapinha)
-
+            st_folium(
+                fig=mapinha,
+                use_container_width=True
+                )
+        with st.container(border=True):
+            tabela = pd.concat([resultado_pol, resultado_pt])
+            st.dataframe(tabela)
 
 st.write("----")
 
