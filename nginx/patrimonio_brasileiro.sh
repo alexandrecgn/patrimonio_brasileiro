@@ -2,10 +2,10 @@
 
 
 # Acidionar caminnho para o Streamlit
-export PATH=/home/alexandrecgn/DevOps/buscador_do_patrimônio/.venv/bin:$PATH
+export PATH=/home/alexandrecgn/patrimonio_brasileiro/.venv/bin:$PATH
 
 # Mudar para diretório do Patrimônio Brasileiro
-cd /home/alexandrecgn/DevOps/buscador_do_patrimônio
+cd /home/alexandrecgn/patrimonio_brasileiro
 
 # Ativar Venv
 source .venv/bin/activate

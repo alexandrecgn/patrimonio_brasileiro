@@ -1,0 +1,12 @@
+[Unit]
+Description=Site Patrimônio Brasileiro
+
+[Service]
+ExecStart=/bin/bash /home/alexandrecgn/patrimonio_brasileiro/nginx/patrimonio_brasileiro.sh
+WorkingDirectory=/home/alexandrecgn/patrimonio_brasileiro/
+Restart=always
+User=alexandrecgn
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
