@@ -19,8 +19,10 @@ Copyright© 2024 Alexandre Cavalcanti
 """
 
 import geopandas as gpd
+import streamlit as st
 
 
+@st.cache_data
 def pesquisar(area):
     """
     consulta o Geoserver Iphan para verificar se existem Bens
