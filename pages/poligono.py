@@ -91,7 +91,14 @@ with st.form("busca", border=False):
                 )
         with st.container(border=True):
             tabela = pd.concat([resultado_pol, resultado_pt])
-            st.dataframe(tabela)
+            st.dataframe(
+                data=tabela,
+                hide_index=True,
+                column_config={
+                    "nome": st.column_config.Column(pinned=True),
+                    "ficha": st.column_config.LinkColumn(),
+                    },
+            )
 
 st.write("----")
 
