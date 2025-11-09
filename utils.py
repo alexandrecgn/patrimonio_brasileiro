@@ -25,22 +25,17 @@ import streamlit as st
 @st.cache_data
 def pesquisar(area):
     """
-    consulta o Geoserver Iphan para verificar se existem Bens
-    Culturais Acautelados na área do polígono de busca através
-    da consulta aos dados oficiais do Iphan.
+    Recebe um arquivo georreferenciado de um polígono e verifica se existem bens \
+    culturais nessa área
 
     Args:
-        poligono (GeoDataFrame): polígono contendo a área na qual
-        se pretende fazer a busca por bens culturais.
+        area (arquivo georreferenciado): _description_
 
-        base_bens (string): string com a URL da base de dados a ser
-        consultada.
-
-    Return:
-        GeoDataFrame: Recorte dos bens culturais, na geomtria polígono,
-        identificados dentro da área de busca.
-        GeoDataFrame: Recorte dos bens culturais, na geomtria ponto,
-        identificados dentro da área de busca.
+    Returns:
+        resultado_pol (GeoDataFrame): GeoDataFrame com os bens culturais em formato\
+            polígono encontrados na área.
+        resultado_pt (GeoDataFrame): GeoDataFrame com os bens culturais em formato\
+            ponto encontrados na área.
     """
     busca = gpd.read_file(area)
     bens_pol = gpd.read_file("bens/bens_pol.gpkg")
@@ -54,6 +49,21 @@ def pesquisar(area):
 
 
 def normalizar_material(gdf, tipo_bem, geometria):
+    """
+    Recebe um arquivo com os bens culturais materiais retirados do SICG e\
+    normaliza as informações para serem consumidas/exibidas no Patrimônio Brasileiro.
+
+    Args:
+        gdf (GeoDataFrame): GeoDataFrame com os bens culturais materiais.
+        tipo_bem (String): String com o tipo de bem material sendo normalizado\
+            (tombado, valorado ou arqueológico)
+        geometria (String): String com a geometria dos bens no GeoDataFrame\
+            (ponto ou polígono)
+
+    Returns:
+        bens (GeoDataFrame): GeoDataFrame com os bens materiais normalizados no\
+            formato esperado pelo Patrimônio Brasileiro.
+    """
     bens = gpd.GeoDataFrame(
         columns=[
             "nome",
@@ -87,6 +97,21 @@ def normalizar_material(gdf, tipo_bem, geometria):
 
 
 def normalizar_imaterial_sicg(gdf, tipo_bem, geometria):
+    """
+    Recebe um arquivo com os bens culturais imateriais retirados do SICG e\
+    normaliza as informações para serem consumidas/exibidas no Patrimônio Brasileiro.
+
+    Args:
+        gdf (GeoDataFrame): GeoDataFrame com os bens culturais imateriais.
+        tipo_bem (String): String com o tipo de bem imaterial sendo normalizado\
+            (tombado, valorado ou arqueológico)
+        geometria (String): String com a geometria dos bens no GeoDataFrame\
+            (ponto ou polígono)
+
+    Returns:
+        bens (GeoDataFrame): GeoDataFrame com os bens imateriais normalizados no\
+            formato esperado pelo Patrimônio Brasileiro.
+    """
     bens = gpd.GeoDataFrame(
         columns=[
             "nome",
@@ -121,6 +146,21 @@ def normalizar_imaterial_sicg(gdf, tipo_bem, geometria):
 
 
 def normalizar_imaterial_bcr(gdf, tipo_bem, geometria):
+    """
+    Recebe um arquivo com os bens culturais imateriais retirados do BCR e\
+    normaliza as informações para serem consumidas/exibidas no Patrimônio Brasileiro.
+
+    Args:
+        gdf (GeoDataFrame): GeoDataFrame com os bens culturais imateriais.
+        tipo_bem (String): String com o tipo de bem imaterial sendo normalizado\
+            (tombado, valorado ou arqueológico)
+        geometria (String): String com a geometria dos bens no GeoDataFrame\
+            (ponto ou polígono)
+
+    Returns:
+        bens (GeoDataFrame): GeoDataFrame com os bens imateriais normalizados no\
+            formato esperado pelo Patrimônio Brasileiro.
+    """
     bens = gpd.GeoDataFrame(
         columns=[
             "nome",
