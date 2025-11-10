@@ -4,6 +4,7 @@ import pandas as pd
 import geopandas as gpd
 from streamlit_folium import st_folium
 from utils import pesquisar
+from layout import hero
 
 
 st.set_page_config(layout="wide")
@@ -35,13 +36,11 @@ marker = folium.Marker(popup=popup1, icon=icon)
 #  ----------------------------------------------------------------------------------------------------------------
 
 
-st.title("Patrimônio Brasileiro")
-
-st.write("----")
+hero()
 
 st.write(
     """
-    ## Busca por polígono
+    ### Busca por polígono
 
     Na seção abaixo, faça o upload de um POLÍGONO georreferenciado para definir a área onde será feita a busca por Bens Culturais acautelados em âmbito federal e, em seguida, clique em **Pesquisar** para exibir os resultados.
     """
@@ -89,7 +88,7 @@ with st.form("busca", border=False):
                 fig=mapinha,
                 use_container_width=True
                 )
-        with st.container(border=True):
+            
             tabela = pd.concat([resultado_pol, resultado_pt])
             st.dataframe(
                 data=tabela,

@@ -1,10 +1,10 @@
 import streamlit as st
+from layout import hero
 
-st.title("Patrimônio Brasileiro")
-st.write("---")
+hero()
 
 
-st.write("## Entre em contato")
+st.write("### Entre em contato")
 
 st.write(
     """
