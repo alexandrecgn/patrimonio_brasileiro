@@ -48,7 +48,7 @@ st.write(
 )
 
 with st.form("busca", border=False):
-    with st.container(border=True):
+    with st.container(border=True, vertical_alignment="center"):
         area = st.file_uploader("Selecionar área", type=["kml", "gpkg", "geojson"])
         enviado = st.form_submit_button("Pesquisar", type="primary")
     
