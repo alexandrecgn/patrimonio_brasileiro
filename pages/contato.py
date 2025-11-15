@@ -1,5 +1,9 @@
 import streamlit as st
-from layout import hero
+from layout import hero, page_config, disclaimer
+
+
+page_config()
+
 
 hero()
 
@@ -14,6 +18,5 @@ Para contato geral: contato@patrimoniobrasileiro.com.br
 """
 )
 
-st.write("----")
 
-st.error("**Disclaimer:** Este projeto não possui nenhum vínculo com o Instituto do Patrimôno Histórico e Artístico Nacional - IPHAN ou qualquer outro órgão/instuição.")
+disclaimer()
