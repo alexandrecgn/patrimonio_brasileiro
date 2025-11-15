@@ -2,8 +2,8 @@
 Description=Site Patrimônio Brasileiro
 
 [Service]
-ExecStart=/bin/bash /home/alexandrecgn/patrimonio_brasileiro/nginx/patrimonio_brasileiro.sh
-WorkingDirectory=/home/alexandrecgn/patrimonio_brasileiro/
+ExecStart=/bin/bash /home/alexandrecgn/Developer/patrimonio_brasileiro/nginx/patrimonio_brasileiro.sh
+WorkingDirectory=/home/alexandrecgn/Developer/patrimonio_brasileiro/
 Restart=always
 User=alexandrecgn
 RestartSec=5
