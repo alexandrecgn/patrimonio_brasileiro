@@ -4,10 +4,11 @@ import pandas as pd
 import geopandas as gpd
 from streamlit_folium import st_folium
 from utils import pesquisar
-from layout import hero
+from layout import hero, page_config, disclaimer
 
 
-st.set_page_config(layout="wide")
+page_config()
+
 
 #  ----------------------------------------------------------------------------------------------------------------
 mapinha = folium.Map(
@@ -99,6 +100,5 @@ with st.form("busca", border=False):
                     },
             )
 
-st.write("----")
 
-st.error("**Disclaimer:** Este projeto não possui nenhum vínculo com o Instituto do Patrimôno Histórico e Artístico Nacional - IPHAN ou qualquer outro órgão/instuição.")
+disclaimer()

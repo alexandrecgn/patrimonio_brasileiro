@@ -1,10 +1,33 @@
 import streamlit as st
 
 
+def page_config():
+     st.set_page_config(layout="wide")
+
+
 def hero():
-    with st.container(horizontal_alignment="center"):
-        st.title("Patrimônio Brasileiro", width="content")
-        st.write("---")
+    with st.container(key="hero",
+                      border=True,
+                      horizontal=False,
+                      horizontal_alignment="center",
+                      vertical_alignment="top",
+                      ):
+            st.markdown("# **patrimônio_brasileiro.**", width="content")
+
+            with st.container(
+                 horizontal=True,
+                 horizontal_alignment="center",
+                 ):
+                st.markdown("*patrimônio*", width="content")
+                st.markdown("*&*", width="content")
+                st.markdown("*dados*", width="content")
+                st.markdown("*&*", width="content")
+                st.markdown("*experimentação*", width="content")
+
+
+def disclaimer():
+    st.write("----")
+    st.error("**Disclaimer:** Este projeto não possui nenhum vínculo com o Instituto do Patrimôno Histórico e Artístico Nacional - IPHAN ou qualquer outro órgão/instuição.")
 
 
 if __name__ == "__main__":
