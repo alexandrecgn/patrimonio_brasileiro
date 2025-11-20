@@ -14,15 +14,15 @@ def hero():
                       ):
             st.markdown("# **patrimônio_brasileiro.**", width="content")
 
-            with st.container(
-                 horizontal=True,
-                 horizontal_alignment="center",
-                 ):
-                st.markdown("*patrimônio*", width="content")
-                st.markdown("*&*", width="content")
-                st.markdown("*dados*", width="content")
-                st.markdown("*&*", width="content")
-                st.markdown("*experimentação*", width="content")
+            # with st.container(
+            #      horizontal=True,
+            #      horizontal_alignment="center",
+            #      ):
+            #     st.markdown("*patrimônio*", width="content")
+            #     st.markdown("*&*", width="content")
+            #     st.markdown("*dados*", width="content")
+            #     st.markdown("*&*", width="content")
+            #     st.markdown("*experimentação*", width="content")
 
 
 def disclaimer():
