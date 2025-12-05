@@ -2,10 +2,12 @@ import streamlit as st
 
 
 def page_config():
+     # Definir o layout da página como "wide".
      st.set_page_config(layout="wide")
 
 
 def hero():
+    # Criar o cabeçalho das páginas.
     with st.container(key="hero",
                       border=True,
                       horizontal=False,
@@ -26,6 +28,7 @@ def hero():
 
 
 def disclaimer():
+    # Criar o disclaimer do fim de cada página.
     st.write("----")
     st.error("**Disclaimer:** Este projeto não possui nenhum vínculo com o Instituto do Patrimôno Histórico e Artístico Nacional - IPHAN ou qualquer outro órgão/instuição.")
 
