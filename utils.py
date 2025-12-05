@@ -37,14 +37,19 @@ def pesquisar(area):
         resultado_pt (GeoDataFrame): GeoDataFrame com os bens culturais em formato\
             ponto encontrados na área.
     """
+    # Carregar o arquivo geo da área de busca.
     busca = gpd.read_file(area)
+    # Carregar o arquivo de bens culturais no formato polígono.
     bens_pol = gpd.read_file("bens/bens_pol.gpkg")
+    # Carregar o arquivo de bens culturais no formato ponto.
     bens_pt = gpd.read_file("bens/bens_pt.gpkg")
+    # Fazer o intersect da área de busca com os bens culturais.
     resultado_pol = gpd.overlay(
         busca, bens_pol, how="intersection", keep_geom_type=False
     )
     resultado_pt = gpd.overlay(
         busca, bens_pt, how="intersection", keep_geom_type=False)
+    # Retornar os bens em polígono e ponto eventualmente existentes na área.
     return resultado_pol, resultado_pt
 
 
@@ -64,6 +69,7 @@ def normalizar_material(gdf, tipo_bem, geometria):
         bens (GeoDataFrame): GeoDataFrame com os bens materiais normalizados no\
             formato esperado pelo Patrimônio Brasileiro.
     """
+    # Criar GeoDataFrame vazio para receber os bens normalizados.
     bens = gpd.GeoDataFrame(
         columns=[
             "nome",
@@ -80,6 +86,7 @@ def normalizar_material(gdf, tipo_bem, geometria):
         crs="EPSG:4674",
     )
 
+    # Criar novos campos e atualizar o nome de outros campos do GDF carregado.
     for index, row in gdf.iterrows():
         bem = {}
         bem["nome"] = row["identificacao_bem"]
@@ -93,6 +100,7 @@ def normalizar_material(gdf, tipo_bem, geometria):
         bem["tipo_geom"] = f"{geometria}"
         bem["geometry"] = row["geometry"]
         bens.loc[len(bens)] = bem
+    # Retornar o GeoDataFrame normalizado.
     return bens
 
 
@@ -112,6 +120,7 @@ def normalizar_imaterial_sicg(gdf, tipo_bem, geometria):
         bens (GeoDataFrame): GeoDataFrame com os bens imateriais normalizados no\
             formato esperado pelo Patrimônio Brasileiro.
     """
+    # Criar GeoDataFrame vazio para receber os bens normalizados.
     bens = gpd.GeoDataFrame(
         columns=[
             "nome",
@@ -128,6 +137,7 @@ def normalizar_imaterial_sicg(gdf, tipo_bem, geometria):
         crs="EPSG:4674",
     )
 
+    # Criar novos campos e atualizar o nome de outros campos do GDF carregado.
     for index, row in gdf.iterrows():
         bem = {}
         bem["nome"] = row["no_bem_imaterial"]
@@ -142,6 +152,7 @@ def normalizar_imaterial_sicg(gdf, tipo_bem, geometria):
         bem["tipo_geom"] = f"{geometria}"
         bem["geometry"] = row["geometry"]
         bens.loc[len(bens)] = bem
+    # Retornar o GeoDataFrame normalizado.
     return bens
 
 
@@ -161,6 +172,7 @@ def normalizar_imaterial_bcr(gdf, tipo_bem, geometria):
         bens (GeoDataFrame): GeoDataFrame com os bens imateriais normalizados no\
             formato esperado pelo Patrimônio Brasileiro.
     """
+    # Criar GeoDataFrame vazio para receber os bens normalizados.
     bens = gpd.GeoDataFrame(
         columns=[
             "nome",
@@ -177,6 +189,7 @@ def normalizar_imaterial_bcr(gdf, tipo_bem, geometria):
         crs="EPSG:4674",
     )
 
+    # Criar novos campos e atualizar o nome de outros campos do GDF carregado.
     for index, row in gdf.iterrows():
         bem = {}
         bem["nome"] = row["identificacao_bem"]
@@ -189,4 +202,5 @@ def normalizar_imaterial_bcr(gdf, tipo_bem, geometria):
         bem["tipo_geom"] = f"{geometria}"
         bem["geometry"] = row["geometry"]
         bens.loc[len(bens)] = bem
+    # Retornar o GeoDataFrame normalizado.
     return bens
