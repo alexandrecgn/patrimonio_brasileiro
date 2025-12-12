@@ -19,6 +19,7 @@ Copyright© 2024 Alexandre Cavalcanti
 """
 
 import geopandas as gpd
+import pandas as pd
 import streamlit as st
 
 
@@ -47,10 +48,42 @@ def pesquisar(area):
     resultado_pol = gpd.overlay(
         busca, bens_pol, how="intersection", keep_geom_type=False
     )
-    resultado_pt = gpd.overlay(
-        busca, bens_pt, how="intersection", keep_geom_type=False)
+    resultado_pt = gpd.overlay(busca, bens_pt, how="intersection", keep_geom_type=False)
     # Retornar os bens em polígono e ponto eventualmente existentes na área.
     return resultado_pol, resultado_pt
+
+
+def separar_tombados(nome_arquivo, nome_planilha):
+    # Carregar o tabelão de bens tombados da CGID/DEPAM.
+    tomb_tabelao = pd.read_excel(nome_arquivo, nome_planilha)
+    # Transformar o dtype das colunas em string.
+    tomb_str = tomb_tabelao.astype(dtype=str)
+
+    # Criar lista vazia para receber códigos SICG dos bens no tabelão
+    sicg = []
+
+    # Filtrar os bens do tabelão para selecionarsomente os verdadeiramente tombados e carregá-los no DataFrame vazio.
+    for index, row in tomb_str.iterrows():
+        if (
+            row["Unnamed: 18"] == "HOMOLOGADO"
+            or row["Unnamed: 18"] == "TOMB. APROV."
+            or row["Unnamed: 18"] == "TOMBADO"
+        ):
+            sicg.append(row["SICG"].strip().replace("-", "").replace(" ", ""))
+
+    # Carregar os bens materiais no geoserver
+    tomb_geoserver = gpd.read_file(
+        "https://geoserver.iphan.gov.br/geoserver/SICG/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=SICG%3Atg_bem_classificacao&maxFeatures=2147483647&outputFormat=application%2Fjson"
+    )
+
+    # Criar DataFrame vazio para receber os bens filtrados.
+    tombados = gpd.GeoDataFrame(columns=tomb_str.columns.to_list())
+
+    for indice, linha in tomb_geoserver.iterrows():
+        if linha["co_iphan"] in sicg:
+            tombados.loc[len(tombados)] = linha
+
+    return tombados
 
 
 def normalizar_material(gdf, tipo_bem, geometria):
@@ -91,8 +124,7 @@ def normalizar_material(gdf, tipo_bem, geometria):
         bem = {}
         bem["nome"] = row["identificacao_bem"]
         bem["descricao"] = row["sintese_bem"]
-        bem["ficha"] = f"https://sicg.iphan.gov.br/sicg/bem/visualizar/{
-            row['id_bem']}"
+        bem["ficha"] = f"https://sicg.iphan.gov.br/sicg/bem/visualizar/{row['id_bem']}"
         bem["tipo"] = f"{tipo_bem}"
         bem["classificacao"] = row["ds_classificacao"]
         bem["data_protecao"] = None
@@ -204,3 +236,38 @@ def normalizar_imaterial_bcr(gdf, tipo_bem, geometria):
         bens.loc[len(bens)] = bem
     # Retornar o GeoDataFrame normalizado.
     return bens
+
+
+def adicionar_municipio(gdf):
+    # Carregar GDF dos municípios brasileiros (fonte: IBGE).
+    municipios = gpd.read_file("limpeza_dados/municipios.geojson")
+    # Definir crs do GDF de municípios.
+    municipios.set_crs("EPSG:4674", inplace=True)
+
+    # Inserir dados de Estado e município nos GDF dos bens na geometria ponto.
+    bens_muni_uf = gdf.sjoin(df=municipios, how="inner", predicate="intersects")
+    # Definir crs do novo GDF.
+    bens_muni_uf.set_crs("EPSG:4674", inplace=True)
+    # Renomear colunas de Estado e município.
+    bens_muni_uf.rename(
+        columns={
+            "nm_mun": "municipio",
+            "sigla_uf": "uf",
+        },
+        inplace=True,
+    )
+
+    # Excluir colunas desnecessárias vindas do GDF de municípios.
+    bens_muni_uf.drop(
+        columns=[
+            "cd_recorte",
+            "quadro",
+            "cd_uf",
+            "cd_mun",
+            "area_km2",
+            "index_right",
+        ],
+        inplace=True,
+    )
+
+    return bens_muni_uf
