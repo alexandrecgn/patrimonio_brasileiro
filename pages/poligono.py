@@ -102,21 +102,22 @@ with st.form("busca", border=False):
         
             status.update(label="Pesquisa Concluída", state="complete")
 # Exibir o mapa.
-            st_folium(
-                fig=mapinha,
-                use_container_width=True
-                )
-            
-            tabela = pd.concat([resultado_pol, resultado_pt])
+            with st.container(height="content"):
+                st_folium(
+                    fig=mapinha,
+                    use_container_width=True
+                    )
+            with st.container(height="content"):
+                tabela = pd.concat([resultado_pol, resultado_pt])
 # Carregar o resultado da busca em formato de tabela.
-            st.dataframe(
-                data=tabela,
-                hide_index=True,
-                column_config={
-                    "nome": st.column_config.Column(pinned=True),
-                    "ficha": st.column_config.LinkColumn(),
-                    },
-            )
+                st.dataframe(
+                    data=tabela,
+                    hide_index=True,
+                    column_config={
+                        "nome": st.column_config.Column(pinned=True),
+                        "ficha": st.column_config.LinkColumn(),
+                        },
+                )
 
 
 # Carregar o disclaimer.
