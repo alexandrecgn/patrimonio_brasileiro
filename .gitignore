@@ -1,7 +1,13 @@
+.ruff_cache/
+
 .venv/
 
 __pycache__/
 
+__marimo__/
+
 caderno.py
 
-__marimo__/
+bens/bens_pol.gpkg
+
+bens/bens_pt.gpkg

@@ -65,11 +65,11 @@ def separar_tombados(nome_arquivo, nome_planilha):
     # Filtrar os bens do tabelão para selecionarsomente os verdadeiramente tombados e carregá-los no DataFrame vazio.
     for index, row in tomb_str.iterrows():
         if (
-            row["Unnamed: 18"] == "HOMOLOGADO"
-            or row["Unnamed: 18"] == "TOMB. APROV."
-            or row["Unnamed: 18"] == "TOMBADO"
+            row["Estágio da Instrução (Portaria 11/86)"] == "HOMOLOGADO"
+            or row["Estágio da Instrução (Portaria 11/86)"] == "TOMB. APROV."
+            or row["Estágio da Instrução (Portaria 11/86)"] == "TOMBADO"
         ):
-            sicg.append(row["SICG"].strip().replace("-", "").replace(" ", ""))
+            sicg.append(row["CÓDIGO IPHAN"].strip().replace("-", "").replace(" ", ""))
 
     # Carregar os bens materiais no geoserver
     tomb_geoserver = gpd.read_file(
@@ -77,7 +77,7 @@ def separar_tombados(nome_arquivo, nome_planilha):
     )
 
     # Criar DataFrame vazio para receber os bens filtrados.
-    tombados = gpd.GeoDataFrame(columns=tomb_str.columns.to_list())
+    tombados = gpd.GeoDataFrame(columns=tomb_geoserver.columns.to_list())
 
     for indice, linha in tomb_geoserver.iterrows():
         if linha["co_iphan"] in sicg:
@@ -240,7 +240,7 @@ def normalizar_imaterial_bcr(gdf, tipo_bem, geometria):
 
 def adicionar_municipio(gdf):
     # Carregar GDF dos municípios brasileiros (fonte: IBGE).
-    municipios = gpd.read_file("limpeza_dados/municipios.geojson")
+    municipios = gpd.read_file("https://geoservicos.ibge.gov.br/geoserverIBGE/CGMAT/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CGMAT%3Apbqg22_04_Municipios_cd_mun&outputFormat=application%2Fjson&maxFeatures=600000")
     # Definir crs do GDF de municípios.
     municipios.set_crs("EPSG:4674", inplace=True)
 
@@ -264,8 +264,6 @@ def adicionar_municipio(gdf):
             "quadro",
             "cd_uf",
             "cd_mun",
-            "area_km2",
-            "index_right",
         ],
         inplace=True,
     )

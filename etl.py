@@ -9,11 +9,11 @@ from utils import (
     separar_tombados,
 )
 
-print("Carregando bens culturais")
+print("\nCarregando bens culturais\n")
 
 # Carregar GeoDataFrame dos bens culturais em pontos e polígonos.
 tombados = separar_tombados(
-    "limpeza_dados/2024-10-02-CONTROLE BENS TOMBADOS.xlsm",
+    "limpeza_dados/2024-10-02-CONTROLE BENS TOMBADOS.xlsx",
     "BENS TOMBADOS E PROCESSO ABERTO",
 )
 valorados = gpd.read_file("bens/valorados.geojson")
@@ -28,7 +28,7 @@ sitios_pol = gpd.read_file(
     "https://geoserver.iphan.gov.br/geoserver/SICG/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=SICG%3Asitios_pol&maxFeatures=2147483647&outputFormat=application%2Fjson"
 )
 
-print("Normalizando tabelas dos bens culturais")
+print("\nNormalizando tabelas dos bens culturais\n")
 
 # Normalizar os dados dos bens culturais no SICG.
 tomb_norm = normalizar_material(tombados, "tombado", "ponto")
@@ -43,7 +43,7 @@ ima_pol_sicg_norm = normalizar_imaterial_sicg(
 ima_pt_bcr_norm = normalizar_imaterial_bcr(imaterial_pt_bcr, "imaterial", "ponto")
 ima_pol_bcr_norm = normalizar_imaterial_bcr(imaterial_pol_bcr, "imaterial", "polígono")
 
-print("Concatenando bens culturais por geometria")
+print("\nConcatenando bens culturais por geometria\n")
 
 # Concatenar GeoDataFrames de bens culturais por geometria.
 bens_pt = pd.concat(
@@ -55,7 +55,7 @@ bens_pol = pd.concat([ima_pol_sicg_norm, ima_pol_bcr_norm, sit_pol_norm])
 bens_pt.set_crs("EPSG:4674", inplace=True)
 bens_pol.set_crs("EPSG:4674", inplace=True)
 
-print("Identificando estado e munícipio de cada bem")
+print("\nIdentificando estado e munícipio de cada bem\n")
 
 bens_muni_uf_pt = adicionar_municipio(bens_pt)
 bens_muni_uf_pol = adicionar_municipio(bens_pol)
@@ -66,7 +66,7 @@ bens_x_pt = bens_muni_uf_pt.explode()
 print(bens_x_pt, bens_muni_uf_pol)
 
 # Salvar os bens em GeoJSON.
-print("Salvando arquivos GeoJSON dos bens culturais")
+print("\nSalvando arquivos GeoJSON dos bens culturais\n")
 
 bens_x_pt.to_file(
     filename="bens/bens_pt.gpkg",
