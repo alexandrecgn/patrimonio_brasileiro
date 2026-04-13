@@ -42,7 +42,7 @@ numpy==2.2.6
 packaging==24.2
 pandas==2.3.0
 parso==0.8.5
-pillow==12.1.1
+pillow==12.2.0
 protobuf==6.33.5
 psutil==7.0.0
 pyarrow==20.0.0
