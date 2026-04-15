@@ -23,7 +23,7 @@ import pandas as pd
 import streamlit as st
 
 
-@st.cache_data
+@st.cache_data(persist="disk")
 def pesquisar(area):
     """
     Recebe um arquivo georreferenciado de um polígono e verifica se existem bens \
