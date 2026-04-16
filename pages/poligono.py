@@ -100,7 +100,7 @@ with st.form("busca", border=False):
             # folium.plugins.MiniMap(tile_layer="OpenStreetMap.Mapnik", toggle_display=True).add_to(mapinha)
             # folium.plugins.Fullscreen().add_to(mapinha)
         
-            status.update(label="Pesquisa Concluída", state="complete")
+            status.update(label="Pesquisa Concluída", state="complete", expanded=True)
 # Exibir o mapa.
             with st.container(height="content"):
                 st_folium(
