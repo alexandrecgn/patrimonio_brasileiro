@@ -4,17 +4,20 @@ import streamlit as st
 def page_config():
      # Definir o layout da página como "wide".
      st.set_page_config(layout="wide")
+     #Definir logo do site
+     st.logo(image="logos/logo.svg", size="large")
 
 
 def hero():
     # Criar o cabeçalho das páginas.
     with st.container(key="hero",
-                      border=True,
+                      border=False,
                       horizontal=False,
                       horizontal_alignment="center",
                       vertical_alignment="top",
                       ):
-            st.markdown("# **patrimônio_brasileiro.**", width="content")
+            st.image(image="logos/logo.svg")
+            # st.markdown("# **patrimônio_brasileiro.**", width="content")
 
             # with st.container(
             #      horizontal=True,
