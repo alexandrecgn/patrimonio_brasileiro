@@ -1,4 +1,4 @@
-![](logos/logo.png)
+<img src="logos/logo.png" width="300" />
 
 
 # Patrimônio Brasileiro 
