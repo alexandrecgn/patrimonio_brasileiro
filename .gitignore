@@ -11,3 +11,7 @@ caderno.py
 bens/bens_pol.gpkg
 
 bens/bens_pt.gpkg
+
+bens/bens_pt.sqlite
+
+bens/bens_pol.sqlite
