@@ -69,7 +69,7 @@ def separar_tombados(nome_arquivo, nome_planilha):
             or row["Estágio da Instrução (Portaria 11/86)"] == "TOMB. APROV."
             or row["Estágio da Instrução (Portaria 11/86)"] == "TOMBADO"
         ):
-            sicg.append(row["CÓDIGO IPHAN"].strip().replace("-", "").replace(" ", ""))
+            sicg.append(str(row["CÓDIGO IPHAN"]).strip().replace("-", "").replace(" ", ""))
 
     # Carregar os bens materiais no geoserver
     tomb_geoserver = gpd.read_file(

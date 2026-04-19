@@ -83,3 +83,20 @@ bens_muni_uf_pol.to_file(
     engine="fiona",
     crs="EPSG:4674",
 )
+
+# Salvar os bens em SQLite
+bens_x_pt.to_file(
+    filename="bens/bens_pt.sqlite",
+    driver="SQLite",
+    spatialite=True,
+    layer="pontos",
+    engine="fiona",
+    )
+
+bens_muni_uf_pol.to_file(
+    filename="bens/bens_pol.sqlite",
+    driver="SQLite",
+    spatialite=True,
+    layer="poligonos",
+    engine="fiona",
+    )
