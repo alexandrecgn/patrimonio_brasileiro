@@ -76,14 +76,41 @@ def separar_tombados(nome_arquivo, nome_planilha):
         "https://geoserver.iphan.gov.br/geoserver/SICG/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=SICG%3Atg_bem_classificacao&maxFeatures=2147483647&outputFormat=application%2Fjson"
     )
 
-    # Criar DataFrame vazio para receber os bens filtrados.
+    # Criar GeoDataFrame vazio para receber os bens filtrados.
     tombados = gpd.GeoDataFrame(columns=tomb_geoserver.columns.to_list())
 
+    # Popular GeoDataFrame de bens tombados
     for indice, linha in tomb_geoserver.iterrows():
         if linha["co_iphan"] in sicg:
             tombados.loc[len(tombados)] = linha
 
     return tombados
+
+def separar_valorados(nome_arquivo, nome_planilha):
+    # Carregar o tabelão de bens valorados da CGID/DEPAM.
+    tabela_valorados = pd.read_excel(nome_arquivo, nome_planilha)
+     # Transformar o dtype das colunas em string.
+    val_str = tabela_valorados.astype(dtype=str)
+
+    # Popular lista vazia com os códigos SICG dos bens na tabela
+    sicg = []
+
+    for index, row in val_str.iterrows():
+         sicg.append(str(row["Código SICG IPHAN"]).strip().replace("-", "").replace(" ", ""))
+
+    # Carregar os bens materiais no geoserver
+    material_geoserver = gpd.read_file(
+        "https://geoserver.iphan.gov.br/geoserver/SICG/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=SICG%3Atg_bem_classificacao&maxFeatures=2147483647&outputFormat=application%2Fjson"
+    )
+    # Criar GeoDataFrame vazio para receber os bens filtrados.
+    valorados = gpd.GeoDataFrame(columns=material_geoserver.columns.to_list())
+
+    # Popular GeoDataFrame de bens valorados
+    for indice, linha in material_geoserver.iterrows():
+        if linha["co_iphan"] in sicg:
+            valorados.loc[len(valorados)] = linha
+
+    return valorados
 
 
 def normalizar_material(gdf, tipo_bem, geometria):

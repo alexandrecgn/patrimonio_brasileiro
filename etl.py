@@ -7,16 +7,20 @@ from utils import (
     normalizar_imaterial_sicg,
     normalizar_material,
     separar_tombados,
+    separar_valorados,
 )
 
 print("\nCarregando bens culturais\n")
 
 # Carregar GeoDataFrame dos bens culturais em pontos e polígonos.
 tombados = separar_tombados(
-    "limpeza_dados/2024-10-02-CONTROLE BENS TOMBADOS.xlsx",
+    "limpeza_dados/2026-03-16-CONTROLE BENS TOMBADOS.xlsx",
     "BENS TOMBADOS E PROCESSO ABERTO",
 )
-valorados = gpd.read_file("bens/valorados.geojson")
+valorados = separar_valorados(
+    "limpeza_dados/LPCF - mar-2026.xlsx",
+    "BRASIL",
+)
 imaterial_pt_bcr = gpd.read_file("bens/imaterial_pt.geojson")
 imaterial_pt_sicg = gpd.read_file("bens/imaterial_pontos_sicg.geojson")
 imaterial_pol_bcr = gpd.read_file("bens/imaterial_pol.geojson")
