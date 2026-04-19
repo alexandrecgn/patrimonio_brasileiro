@@ -36,7 +36,7 @@ with st.container(
         st.metric(label="Bens Tombados", value=1158, delta="Primeira medição", border=True, width="content", delta_color="off", delta_arrow="off")
         st.metric(label="Bens Ferroviários", value=596, delta="Primeira medição", border=True, width="content", delta_color="off", delta_arrow="off")
 
-    st.warning("\* *Esse número corresponde ao total de pontos de ocorrência de Bens Imateriais Registrados. O total de Bens Imaterias é 65.*")
+    st.warning("\* *Esse número corresponde ao total de pontos de ocorrência de Bens Imateriais Registrados. O total de Bens Imateriais é 65.*")
 
 with st.container(border=True):
     st.write("### Fonte dos dados")
