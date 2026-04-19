@@ -35,6 +35,7 @@ with st.container(
         st.metric(label="Bens Imateriais*", value=330, delta="Primeira medição", border=True, width="content", delta_color="off", delta_arrow="off")
         st.metric(label="Bens Tombados", value=1158, delta="Primeira medição", border=True, width="content", delta_color="off", delta_arrow="off")
         st.metric(label="Bens Ferroviários", value=596, delta="Primeira medição", border=True, width="content", delta_color="off", delta_arrow="off")
+        st.metric(label="Data de atualização", value="*19 de abril de 2026*", delta="Primeira medição", border=True, width="content", delta_color="off", delta_arrow="off")
 
     st.warning("\* *Esse número corresponde ao total de pontos de ocorrência de Bens Imateriais Registrados. O total de Bens Imateriais é 65.*")
 
@@ -46,10 +47,7 @@ with st.container(border=True):
 - Bens Tombados: http://portal.iphan.gov.br/pagina/detalhes/126
 - Bens Ferroviários: http://portal.iphan.gov.br/pagina/detalhes/127
 - Dados de geolocalização: https://geoserver.iphan.gov.br/
-
-Data da última atualização: *19 de abril de 2026*.
 """)
-    st.write("")
 
 
 # Carregar o disclaimer.
