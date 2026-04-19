@@ -14,7 +14,7 @@ with st.container(border=False):
                  publicamente sobre o Patrimônio Cultural protegido em nível federal.
                  
                  Através da [Busca por polígono](https://patrimoniobrasileiro.com.br/poligono)\
-                 é possível inserir uma poligonal e o o resultado será exibido em um mapa com\
+                 é possível inserir uma poligonal e o resultado será exibido em um mapa com\
                  todos os bens georreferenciados encontrados dentro dessa poligonal.
 
                  Futuramente serão adicionadas as funcionalidades de **Busca por Município** e\
@@ -31,11 +31,11 @@ with st.container(
     horizontal=True,
     horizontal_alignment="distribute"
 ):
-        st.metric(label="Bens Arqueológicos", value=31.671, delta="Primeira medição", border=True, width="content", delta_color="off", delta_arrow="off")
-        st.metric(label="Bens Imateriais*", value=330, delta="Primeira medição", border=True, width="content", delta_color="off", delta_arrow="off")
-        st.metric(label="Bens Tombados", value=1158, delta="Primeira medição", border=True, width="content", delta_color="off", delta_arrow="off")
-        st.metric(label="Bens Ferroviários", value=596, delta="Primeira medição", border=True, width="content", delta_color="off", delta_arrow="off")
-        st.metric(label="Data de atualização", value="*19 de abril de 2026*", delta="Primeira medição", border=True, width="content", delta_color="off", delta_arrow="off")
+        st.metric(label="**Bens Arqueológicos**", value=31.671, delta="Primeira medição", border=True, width="content", delta_color="off", delta_arrow="off")
+        st.metric(label="**Bens Imateriais\***", value=330, delta="Primeira medição", border=True, width="content", delta_color="off", delta_arrow="off")
+        st.metric(label="**Bens Tombados**", value=1158, delta="Primeira medição", border=True, width="content", delta_color="off", delta_arrow="off")
+        st.metric(label="**Bens Ferroviários**", value=596, delta="Primeira medição", border=True, width="content", delta_color="off", delta_arrow="off")
+        st.metric(label="**Data de atualização**", value="19 de abril de 2026", delta="Primeira medição", border=True, width="content", delta_color="off", delta_arrow="off")
 
     st.warning("\* *Esse número corresponde ao total de pontos de ocorrência de Bens Imateriais Registrados. O total de Bens Imateriais é 65.*")
 
