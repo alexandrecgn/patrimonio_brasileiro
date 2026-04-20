@@ -267,7 +267,7 @@ def normalizar_imaterial_bcr(gdf, tipo_bem, geometria):
 
 def adicionar_municipio(gdf):
     # Carregar GDF dos municípios brasileiros (fonte: IBGE).
-    municipios = gpd.read_file("https://geoservicos.ibge.gov.br/geoserverIBGE/CGMAT/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=CGMAT%3Apbqg22_04_Municipios_cd_mun&outputFormat=application%2Fjson&maxFeatures=600000")
+    municipios = gpd.read_file("municipios/pbqg22_04_Municipios_cd_mun.geojson")
     # Definir crs do GDF de municípios.
     municipios.set_crs("EPSG:4674", inplace=True)
 
