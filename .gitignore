@@ -15,3 +15,5 @@ bens/bens_pt.gpkg
 bens/bens_pt.sqlite
 
 bens/bens_pol.sqlite
+
+municipios/pbqg22_04_Municipios_cd_mun.geojson
