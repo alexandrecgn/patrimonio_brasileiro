@@ -78,10 +78,11 @@ Exemplo:
 * [x] ~~Tornar os itens mapa clicáveis para exibir um pop-up com as informações do bem~~;
 * [x] ~~Refatorar utils.py;~~
 * [x] ~~Refatorar poligono.py;~~
-* [x] ~~Adicionar cache dos dados de resultado da pesquisa por polígono.~~
-* [ ] Primorar performance nas funções de utils.py.
-* [ ] Refatorar municipio.py;
-* [ ] Adicionar busca de todos os bens a partir da seleção da Unidade Federativa e município;
+* [x] ~~Adicionar cache dos dados de resultado da pesquisa por polígono;~~
+* [x] ~~Refatorar municipio.py;~~
+* [x] ~~Adicionar busca de todos os bens a partir da seleção da Unidade Federativa e município;~~
+* [ ] Adicionar retorno de mapa na busca por município;
+* [ ] Primorar performance nas funções de utils.py;
 * [ ] Refatorar visualizador.py;
 * [ ] Adicionar visualizador de todos bens;
 * [ ] Refatorar main.py;
