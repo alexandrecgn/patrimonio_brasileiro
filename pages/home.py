@@ -24,6 +24,8 @@ with st.container(border=False):
                  Futuramente serão adicionadas as funcionalidades de mapa em **Busca por Município** e\
                  uma página para **visualização de todos os bens georreferenciados**.
         """)
+        st.write("")
+        st.write("*Este projeto está em desenvolvimento: versão alpha* [`v0.18`](https://github.com/alexandrecgn/patrimonio_brasileiro/releases/tag/v0.18)")
 
 with st.container(
     border=True,
