@@ -19,7 +19,7 @@ with st.container(border=False):
 
                  Na [Busca por município](https://patrimoniobrasileiro.com.br/municipio)\
                  é possível selecionar UF e município para ver uma tabela com\
-                 todos os bens georreferenciados encontrados no município.
+                 todos os bens georreferenciados encontrados na cidade selecionada.
 
                  Futuramente serão adicionadas as funcionalidades de mapa em **Busca por Município** e\
                  uma página para **visualização de todos os bens georreferenciados**.
