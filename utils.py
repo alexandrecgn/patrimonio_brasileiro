@@ -21,6 +21,7 @@ Copyright© 2024 Alexandre Cavalcanti
 import geopandas as gpd
 import pandas as pd
 import streamlit as st
+import sqlalchemy as sa
 
 
 @st.cache_data(persist="disk")
@@ -296,3 +297,17 @@ def adicionar_municipio(gdf):
     )
 
     return bens_muni_uf
+
+
+@st.cache_resource
+def pesquisar_municipio(banco, tabela, municipio):
+    engine = sa.create_engine(banco)
+    conn = engine.connect()
+    query = sa.text(f"select nome, descricao, ficha from {tabela} where municipio is \'{municipio}\'")
+    busca = conn.execute(query)
+    resultado = st.dataframe(busca.all(),
+                    column_config={
+                "ficha": st.column_config.LinkColumn(),
+                },)
+    
+    return resultado

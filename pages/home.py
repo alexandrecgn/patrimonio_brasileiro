@@ -17,8 +17,12 @@ with st.container(border=False):
                  é possível inserir uma poligonal e o resultado será exibido em um mapa com\
                  todos os bens georreferenciados encontrados dentro dessa poligonal.
 
-                 Futuramente serão adicionadas as funcionalidades de **Busca por Município** e\
-                 de **visualização de todos os bens georreferenciados**.
+                 Na [Busca por município](https://patrimoniobrasileiro.com.br/municipio)\
+                 é possível selecionar UF e município para ver uma tabela com\
+                 todos os bens georreferenciados encontrados no município.
+
+                 Futuramente serão adicionadas as funcionalidades de mapa em **Busca por Município** e\
+                 uma página para **visualização de todos os bens georreferenciados**.
         """)
 
 with st.container(
